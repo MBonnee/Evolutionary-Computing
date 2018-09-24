@@ -33,6 +33,9 @@ public class player39 implements ContestSubmission {
         boolean isSeparable = Boolean.parseBoolean(props.getProperty("Separable"));
 
         // Do sth with property values, e.g. specify relevant settings of your algorithm
+
+        // find different representation => how does it affect performance / diversity
+
         if(isMultimodal){
             // Do sth
         }else{
@@ -42,12 +45,14 @@ public class player39 implements ContestSubmission {
 
     public void run() {
         // Run your algorithm here
-
+    	System.out.println("Hoi, het werkt!")
         int evals = 0;
         // init population
         // calculate fitness
         while(evals<evaluations_limit_){
             // Select parents
+
+
             // Apply crossover / mutation operators
             double child[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
             // Check fitness of unknown fuction
