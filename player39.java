@@ -45,7 +45,7 @@ public class player39 implements ContestSubmission {
 
     public void run() {
         // Run your algorithm here
-    	System.out.println("Hoi, het werkt!")
+    	System.out.println("Hoi, het werkt goed!");
         int evals = 0;
         // init population
         // calculate fitness
@@ -57,7 +57,6 @@ public class player39 implements ContestSubmission {
             double child[] = {1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
             // Check fitness of unknown fuction
             Double fitness = (double) evaluation_.evaluate(child);
-            
             evals++;
             // Select survivors
         }
