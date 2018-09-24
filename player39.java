@@ -42,13 +42,25 @@ public class player39 implements ContestSubmission {
             // Do sth else
         }
     }
+    
+    double[][] init_pop(population_size) {
+    	double[][] population = double[population_size][]
+    	double split = 10 / population_size
+    	for(i = -5; i < 5; i += split) {
+    		
+    	}
+    			
+    }
 
     public void run() {
         // Run your algorithm here
     	System.out.println("Hoi, het werkt goed!");
         int evals = 0;
+        int population_size = 100;
         // init population
+        
         // calculate fitness
+        
         while(evals<evaluations_limit_){
             // Select parents
 
@@ -60,5 +72,9 @@ public class player39 implements ContestSubmission {
             evals++;
             // Select survivors
         }
+    }
+    
+    public static void main(String[] args) {
+    	System.out.println("Start Windows");
     }
 }
