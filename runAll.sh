@@ -1,4 +1,4 @@
-!/bin/bash
+!/bin/sh
 
 EVALUATION_FUNCTION=$1
 
