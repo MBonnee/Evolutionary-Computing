@@ -2,6 +2,7 @@ import org.vu.contest.ContestSubmission;
 import org.vu.contest.ContestEvaluation;
 
 import java.util.Random;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class player39 implements ContestSubmission {
@@ -44,12 +45,13 @@ public class player39 implements ContestSubmission {
     }
     
     double[][] init_pop(population_size) {
-    	double[][] population = double[population_size][]
-    	double split = 10 / population_size
-    	for(i = -5; i < 5; i += split) {
-    		
+    	double[][] population = double[population_size][];
+    	for(i = 0; i < population_size; i++) {
+    		add = double[10]
+    		Arrays.fill(add, rnd_);
+    		population[i][] = add;
     	}
-    			
+    	return population;
     }
 
     public void run() {
@@ -64,7 +66,6 @@ public class player39 implements ContestSubmission {
         while(evals<evaluations_limit_){
             // Select parents
 
-
             // Apply crossover / mutation operators
             double child[] = {1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
             // Check fitness of unknown fuction
@@ -76,5 +77,7 @@ public class player39 implements ContestSubmission {
     
     public static void main(String[] args) {
     	System.out.println("Start Windows");
+    	double[][] test = init_pop(5);
+    	System.out.println(test[1][1] + test[1][2] + test[1][3])
     }
 }
