@@ -45,7 +45,7 @@ public class player39 implements ContestSubmission {
 
     public void run() {
         // Run your algorithm here
-    	System.out.println("Hoi, het werkt!")
+    	System.out.println("Hoi, het werkt!");
         int evals = 0;
         // init population
         // calculate fitness
