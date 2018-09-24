@@ -54,9 +54,10 @@ public class player39 implements ContestSubmission {
 
 
             // Apply crossover / mutation operators
-            double child[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+            double child[] = {1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
             // Check fitness of unknown fuction
             Double fitness = (double) evaluation_.evaluate(child);
+            
             evals++;
             // Select survivors
         }
