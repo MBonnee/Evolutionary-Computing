@@ -44,14 +44,25 @@ public class player39 implements ContestSubmission {
         }
     }
     
-    double[][] init_pop(population_size) {
-    	double[][] population = double[population_size][];
-    	for(i = 0; i < population_size; i++) {
-    		add = double[10]
-    		Arrays.fill(add, rnd_);
-    		population[i][] = add;
+    public double[][] init_pop(int population_size) {
+    	double[][] population = new double[population_size][];
+    	for(int i = 0; i < population_size; i++) {
+    		double[] add = new double[10];
+    		for(int j = 0; j < 10; j++) {
+    			add[j] = rnd_.nextDouble();
+    		}
+    		population[i] = add;
     	}
     	return population;
+    }
+    
+    public double[][][] init_islands(int island_size, int population_size){
+    	double[][][] islands = new double[island_size][][];
+    	for(int i = 0; i < island_size; i++) {
+    		double[][] add = init_pop(population_size);
+    		islands[i] = add;
+    	}
+    	return islands;
     }
 
     public void run() {
