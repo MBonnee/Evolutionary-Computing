@@ -11,7 +11,8 @@ public class player39 implements ContestSubmission {
     // changed this to public static to be able to reference it in Individual.java
     public static ContestEvaluation evaluation_;
     private int evaluations_limit_;
-    private int num_islands = 0;
+    private int numIslands = 10;
+    private int popSize = 10;
 
     public player39() {
         rnd_ = new Random();
@@ -29,6 +30,7 @@ public class player39 implements ContestSubmission {
         Properties props = evaluation.getProperties();
         System.out.println("All properties");
         System.out.println(props);
+        
         // Get evaluation limit
         // !!!!!
         evaluations_limit_ = 1; //Integer.parseInt(props.getProperty("Evaluations"));
@@ -38,8 +40,9 @@ public class player39 implements ContestSubmission {
         boolean hasStructure = Boolean.parseBoolean(props.getProperty("Regular"));
         boolean isSeparable = Boolean.parseBoolean(props.getProperty("Separable"));
 
-        // int numIslands = Integer.parseInt(props.getProperty("numIslands"));
-  
+        numIslands = Integer.parseInt(System.getProperty("NumIslands"));
+        popSize= Integer.parseInt(System.getProperty("PopSize"));
+
         // Do sth with property values, e.g. specify relevant settings of your algorithm
 
         // find different representation => how does it affect performance / diversity
@@ -68,32 +71,35 @@ public class player39 implements ContestSubmission {
     public void run() {
         // Run your algorithm here
         int evals = 0;
-        // init islands
-        ArrayList<Island> islands = initIslands(10, 10);
+        // init islands with populations
+        ArrayList<Island> islands = initIslands(this.numIslands, this.popSize);
 
-        System.out.println(islands.get(0).population.toString());
-        System.out.println(islands.get(0).population.getFittest());
- 
+        for (Island island : islands) {
+            System.out.println("ISLAND FITTEST INDIVIDUAL:");
+            System.out.println(island.population.getFittestIndividual().toString());
+            System.out.println(island.population.getFittestIndividual().getFitness());
+        }
+
         // init population on islands
         // calculate fitness
         
         while(evals<evaluations_limit_){
+
+            if (evals % 3 == 0) {
+              // do a migration round
+            } else {
+              // evolve locally
+            }
+
             // Select parents
 
             // Apply crossover / mutation operators
 
-            Individual ind = new Individual();
-            ind.generateIndividual();
-            Double fit = ind.getFitness();
-            System.out.println(ind.toString());
-            System.out.println(fit);
-
-
-
-
             // Check fitness of unknown fuction
             evals++;
             // Select survivors
+
+            // migrate
         }
     }
     

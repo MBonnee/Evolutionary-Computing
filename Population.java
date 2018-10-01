@@ -28,7 +28,7 @@ public class Population {
       return individuals[index];
   }
 
-  public Individual getFittest() {
+  public Individual getFittestIndividual() {
       Individual fittest = individuals[0];
       // Loop through individuals to find fittest
       for (int i = 0; i < size(); i++) {
