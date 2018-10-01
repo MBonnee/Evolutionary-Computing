@@ -4,6 +4,7 @@ import org.vu.contest.ContestEvaluation;
 import java.util.Random;
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.ArrayList;
 
 public class player39 implements ContestSubmission {
     Random rnd_;
@@ -37,7 +38,7 @@ public class player39 implements ContestSubmission {
         boolean hasStructure = Boolean.parseBoolean(props.getProperty("Regular"));
         boolean isSeparable = Boolean.parseBoolean(props.getProperty("Separable"));
 
-        int numIslands = Integer.parseInt(props.getProperty("numIslands"));
+        // int numIslands = Integer.parseInt(props.getProperty("numIslands"));
   
         // Do sth with property values, e.g. specify relevant settings of your algorithm
 
@@ -51,11 +52,11 @@ public class player39 implements ContestSubmission {
     }
 
 
-    private Island[] initIslands(int num, int pop_size) {
-      Island islands[];
+    private ArrayList<Island> initIslands(int num, int pop_size) {
+      ArrayList<Island> islands = new ArrayList<Island>();
       for (int i = 0; i < num; i++) {
-        island = new Island(pop_size);
-        islands.push(island);
+        Island island = new Island(pop_size);
+        islands.add(island);
       } 
       return islands;
     }
@@ -68,10 +69,10 @@ public class player39 implements ContestSubmission {
         // Run your algorithm here
         int evals = 0;
         // init islands
-        Island islands[] = initIslands(10, 10);
+        ArrayList<Island> islands = initIslands(10, 10);
 
-        System.out.println(islands[0].population.toString());
-        System.out.println(islands[0].population.getFittest());
+        System.out.println(islands.get(0).population.toString());
+        System.out.println(islands.get(0).population.getFittest());
  
         // init population on islands
         // calculate fitness
@@ -98,7 +99,6 @@ public class player39 implements ContestSubmission {
     
     public static void main(String[] args) {
     	System.out.println("Start Windows");
-    	double[][] test = init_pop(5);
-    	System.out.println(test[1][1] + test[1][2] + test[1][3])
+      //player39.run();
     }
 }

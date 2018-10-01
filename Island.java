@@ -7,4 +7,8 @@ public class Island {
   public Island(int populationSize) {
     population = new Population(populationSize, true);
   }
+
+  public double islandFitness(Island island) {
+    return 0.0;
+  }
 }

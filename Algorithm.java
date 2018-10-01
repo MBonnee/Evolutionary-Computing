@@ -3,6 +3,7 @@ import java.util.Collections;
 public class Algorithm {
   // here we do all the mutation, crossover, selection methods etc.
   // Mutate an individual
+  /*
   private static void mutate(Individual indiv) {
     // Loop through genes
     for (int i = 0; i < indiv.size(); i++) {
@@ -44,7 +45,7 @@ public class Algorithm {
     }
 
     return newPopulation;
-  }
+  }*/
 
 
 }
