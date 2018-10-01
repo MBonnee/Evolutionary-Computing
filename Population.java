@@ -56,4 +56,14 @@ public class Population {
   public void saveIndividual(int index, Individual indiv) {
       individuals[index] = indiv;
   }
+
+  @Override
+  public String toString() {
+    String output = "Individuals: \n";
+    for (Individual ind : this.individuals) 
+    { 
+      output+= ind.toString() + "\n";
+    }
+    return output;
+  }
 }

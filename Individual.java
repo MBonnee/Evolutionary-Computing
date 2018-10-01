@@ -2,11 +2,12 @@ public class Individual {
 
 
   static int defaultGeneLength = 10;
-  private double genes[] = {1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0}; 
+  private double genes[] = {Math.random(),1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0}; 
   // Cache
   private Double fitness = 0.0;
 
   // Create a random individual
+  // DO SOME DIFFERENT RANDOMIZATION AND EXPLORATION/EXPLOITATION INITS HERE
   public double[] generateIndividual() {
       return genes;
   }

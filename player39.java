@@ -2,6 +2,7 @@ import org.vu.contest.ContestSubmission;
 import org.vu.contest.ContestEvaluation;
 
 import java.util.Random;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class player39 implements ContestSubmission {
@@ -9,6 +10,7 @@ public class player39 implements ContestSubmission {
     // changed this to public static to be able to reference it in Individual.java
     public static ContestEvaluation evaluation_;
     private int evaluations_limit_;
+    private int num_islands = 0;
 
     public player39() {
         rnd_ = new Random();
@@ -48,36 +50,55 @@ public class player39 implements ContestSubmission {
         }
     }
 
+
+    private Island[] initIslands(int num, int pop_size) {
+      Island islands[];
+      for (int i = 0; i < num; i++) {
+        island = new Island(pop_size);
+        islands.push(island);
+      } 
+      return islands;
+    }
+
+    ///
+    /// http://www.theprojectspot.com/tutorial-post/creating-a-genetic-algorithm-for-beginners/3
+    ///
+    
     public void run() {
         // Run your algorithm here
         int evals = 0;
         // init islands
+        Island islands[] = initIslands(10, 10);
 
-
+        System.out.println(islands[0].population.toString());
+        System.out.println(islands[0].population.getFittest());
+ 
         // init population on islands
-
-
         // calculate fitness
+        
         while(evals<evaluations_limit_){
             // Select parents
 
             // Apply crossover / mutation operators
-            double child[] = {1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
 
             Individual ind = new Individual();
             ind.generateIndividual();
-            
             Double fit = ind.getFitness();
             System.out.println(ind.toString());
             System.out.println(fit);
-            System.out.println("Hoi, het werkt!");
+
+
 
 
             // Check fitness of unknown fuction
-            Double fitness = (double) evaluation_.evaluate(child);
-            System.out.println(fitness);
             evals++;
             // Select survivors
         }
+    }
+    
+    public static void main(String[] args) {
+    	System.out.println("Start Windows");
+    	double[][] test = init_pop(5);
+    	System.out.println(test[1][1] + test[1][2] + test[1][3])
     }
 }
