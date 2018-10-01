@@ -1,2 +1,4 @@
 .metadata
 tmp
+*.jar
+*.class
