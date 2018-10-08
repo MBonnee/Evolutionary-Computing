@@ -80,6 +80,8 @@ public class player39 implements ContestSubmission {
             //System.out.println(island.population.getFittestIndividual().getFitness());
             System.out.println(island.population.individuals.get(0).getFitness());
             System.out.println(island.population.individuals.get(1).getFitness());
+            System.out.println("Average");
+            System.out.println(island.population.getAveragePopulationFitness());
             island.population.sortPopulation();
             System.out.println(island.population.individuals.get(0).getFitness());
             System.out.println(island.population.individuals.get(1).getFitness());

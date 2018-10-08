@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Population {
 
     public ArrayList<Individual> individuals;
+    public double fitness = 0.0;
 
     /*
      * Constructors
@@ -28,6 +29,15 @@ public class Population {
 
     public int getPopulationsSize(){
         return individuals.size();
+    }
+
+    public double getAveragePopulationFitness() {
+      double sum = 0.0;
+      for (Individual ind : individuals) {
+          sum += ind.getFitness();
+      }
+      fitness = sum / this.getPopulationsSize(); 
+      return fitness; 
     }
 
     public Individual getFittestIndividual() {
