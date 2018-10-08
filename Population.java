@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Population {
 
-    private ArrayList<Individual> individuals;
+    public ArrayList<Individual> individuals;
 
     /*
      * Constructors
@@ -41,21 +41,19 @@ public class Population {
         return fittest;
     }
 
-  // should be improved
-  public void sortPopulationOnFitness() {
-    Collections.sort(individuals, Individual.FitnessComparator);
+  public void sortPopulation() {
+    Collections.sort(individuals, new SortByFitness()); 
   }
-
 
   /* Public methods */
   // Get population size
   public int size() {
-      return individuals.length;
+      return individuals.size();
   }
 
   // Save individual
   public void saveIndividual(int index, Individual indiv) {
-      individuals[index] = indiv;
+      individuals.add(index,indiv);
   }
 
     @Override

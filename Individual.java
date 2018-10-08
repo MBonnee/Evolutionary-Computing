@@ -1,54 +1,67 @@
 import java.util.Comparator;
 
-public class Individual implements Comparable<Individual> {
-    static int defaultGeneLength = 10;
-    private double genes[];
-    private double fitness;
+public class Individual {
 
-    // Create a random individual
-    // DO SOME DIFFERENT RANDOMIZATION AND EXPLORATION/EXPLOITATION INITS HERE
-    public Individual() {
-        genes = new double[defaultGeneLength];
-        for (int i = 0; i < defaultGeneLength; i++) {
-            genes[i] = Math.random();
-        }
-        fitness = 0.0;
-    }
+  static int defaultGeneLength = 10;
+  private double genes[];
+  // Cache
+  private Double fitness = 0.0;
 
-    /* Getters and setters */
-    // Use this if you want to create individuals with different gene lengths
-    public static void setDefaultGeneLength(int length) {
-        defaultGeneLength = length;
-    }
-    
-    public Double getGene(int index) {
-        return genes[index];
-    }
+  // Create a random individual
+  // DO SOME DIFFERENT RANDOMIZATION AND EXPLORATION/EXPLOITATION INITS HERE
+  public Individual() {
+      genes = new double[defaultGeneLength];
+      for (int i = 0; i < defaultGeneLength; i++) {
+          genes[i] = Math.random();
+      }
+      fitness = 0.0;
+  }
 
-    public void setGene(int index, double value) {
-        genes[index] = value;
-        fitness = 0.0;
-    }
+  /* Getters and setters */
+  // Use this if you want to create individuals with different gene lengths
+  public static void setDefaultGeneLength(int length) {
+      defaultGeneLength = length;
+  }
+  
+  public Double getGene(int index) {
+      return genes[index];
+  }
 
-    /* Public methods */
-    public int size() {
-        return genes.length;
-    }
+  public void setGene(int index, Double value) {
+      genes[index] = value;
+      fitness = 0.0;
+  }
 
-    public double getFitness() {
-        if (fitness == 0.0) {
-            fitness = (double) player39.evaluation_.evaluate(this.genes);
-        }
-        return fitness;
-    }
+  /* Public methods */
+  public int size() {
+      return genes.length;
+  }
 
-    @Override
-    public String toString() {
-        String geneString = "{";
-        for (int i = 0; i < size(); i++) {
-            geneString += getGene(i)+",";
-        }
-        geneString += "}";
-        return geneString;
-    }
+  public Double getFitness() {
+      if (fitness == 0.0) {
+          fitness = (double) player39.evaluation_.evaluate(this.genes);
+      }
+      return fitness;
+  }
+
+  @Override
+  public String toString() {
+      String geneString = "{";
+      for (int i = 0; i < size(); i++) {
+          geneString += getGene(i)+",";
+      }
+      geneString += "}";
+      return geneString;
+  }
+ 
 }
+
+class SortByFitness implements Comparator<Individual> 
+{ 
+    // Used for sorting in ascending order of 
+    // roll number 
+    public int compare(Individual a, Individual b) 
+    { 
+        return -Double.compare(a.getFitness(), b.getFitness()); 
+    } 
+} 
