@@ -1,41 +1,45 @@
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.ArrayList;
 
 public class Population {
 
-  Individual[] individuals;
+    private ArrayList<Individual> individuals;
 
-  /*
-   * Constructors
-   */
-  // Create a population
-  public Population(int populationSize, boolean initialise) {
-      individuals = new Individual[populationSize];
-      // Initialise population
-      if (initialise) {
-          // Loop and create individuals
-          for (int i = 0; i < size(); i++) {
-              Individual newIndividual = new Individual();
-              newIndividual.generateIndividual();
-              saveIndividual(i, newIndividual);
-          }
-      }
-  }
+    /*
+     * Constructors
+     */
+    // Create a population
+    public Population(int populationSize, boolean initialise) {
+        individuals = new ArrayList<Individual>();
+        // Initialise population
+        if (initialise) {
+            // Loop and create individuals
+            for (int i = 0; i < populationSize; i++) {
+                individuals.add(new Individual());
+            }
+        }
+    }
 
-  /* Getters */
-  public Individual getIndividual(int index) {
-      return individuals[index];
-  }
+    /* Getters */
+    public Individual getIndividual(int index) {
+        return individuals.get(index);
+    }
 
-  public Individual getFittestIndividual() {
-      Individual fittest = individuals[0];
-      // Loop through individuals to find fittest
-      for (int i = 0; i < size(); i++) {
-          if (fittest.getFitness() <= getIndividual(i).getFitness()) {
-              fittest = getIndividual(i);
-          }
-      }
-      return fittest;
-  }
+    public int getPopulationsSize(){
+        return individuals.size();
+    }
+
+    public Individual getFittestIndividual() {
+        Individual fittest = individuals.get(0);
+        // Loop through individuals to find fittest
+        for (Individual individual: individuals) {
+            if (fittest.getFitness() <= individual.getFitness()) {
+                fittest = individual;
+            }
+        }
+        return fittest;
+    }
 
   // should be improved
   public void sortPopulationOnFitness() {
@@ -54,13 +58,13 @@ public class Population {
       individuals[index] = indiv;
   }
 
-  @Override
-  public String toString() {
-    String output = "Individuals: \n";
-    for (Individual ind : this.individuals) 
-    { 
-      output+= ind.toString() + "\n";
+    @Override
+    public String toString() {
+      String output = "Individuals: \n";
+      for (Individual ind : this.individuals) 
+      { 
+        output+= ind.toString() + "\n";
+      }
+      return output;
     }
-    return output;
-  }
 }
