@@ -1,6 +1,4 @@
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Population {
 
@@ -39,10 +37,9 @@ public class Population {
       return fittest;
   }
 
-  
   // should be improved
-  public void sortPopulationOnFitness(Individual[] individuals) {
-    
+  public void sortPopulationOnFitness() {
+    Collections.sort(individuals, Individual.FitnessComparator);
   }
 
 

@@ -1,5 +1,6 @@
-public class Individual {
+import java.util.Comparator;
 
+public class Individual implements Comparable<Individual> {
 
   static int defaultGeneLength = 10;
   private double genes[];
@@ -42,6 +43,20 @@ public class Individual {
       }
       return fitness;
   }
+
+  public int compareTo(Individual individual) {
+    return Double.compare(this.getFitness(), individual.getFitness());
+  }
+
+  public static Comparator<Individual> FitnessComparator 
+                          = new Comparator<Individual>() {
+
+	    public int compare(Individual ind1, Individual ind2) {
+	      //ascending order
+	      return ind1.getFitness().compareTo(ind2.getFitness());
+	    }
+
+	};
 
   @Override
   public String toString() {

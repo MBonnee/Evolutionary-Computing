@@ -75,9 +75,13 @@ public class player39 implements ContestSubmission {
         ArrayList<Island> islands = initIslands(this.numIslands, this.popSize);
 
         for (Island island : islands) {
-            System.out.println("ISLAND FITTEST INDIVIDUAL:");
-            System.out.println(island.population.getFittestIndividual().toString());
-            System.out.println(island.population.getFittestIndividual().getFitness());
+            //System.out.println("ISLAND FITTEST INDIVIDUAL:");
+            //System.out.println(island.population.getFittestIndividual().toString());
+            //System.out.println(island.population.getFittestIndividual().getFitness());
+            System.out.println(island.population.individuals);
+            island.population.sortPopulationOnFitness();
+            System.out.println(island.population.individuals);
+            break;
         }
 
         // init population on islands
