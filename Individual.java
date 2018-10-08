@@ -1,19 +1,17 @@
 public class Individual {
 
-
   static int defaultGeneLength = 10;
   private double genes[];
-  // Cache
-  private Double fitness = 0.0;
+  private double fitness;
 
   // Create a random individual
   // DO SOME DIFFERENT RANDOMIZATION AND EXPLORATION/EXPLOITATION INITS HERE
-  public void generateIndividual() {
-      double tempGens[] = new double[defaultGeneLength];
+  public Individual() {
+      genes = new double[defaultGeneLength];
       for (int i = 0; i < defaultGeneLength; i++) {
-        tempGens[i] = Math.random();
+          genes[i] = Math.random();
       }
-      genes = tempGens;
+      fitness = 0.0;
   }
 
   /* Getters and setters */
@@ -26,7 +24,7 @@ public class Individual {
       return genes[index];
   }
 
-  public void setGene(int index, Double value) {
+  public void setGene(int index, double value) {
       genes[index] = value;
       fitness = 0.0;
   }
@@ -36,7 +34,7 @@ public class Individual {
       return genes.length;
   }
 
-  public Double getFitness() {
+  public double getFitness() {
       if (fitness == 0.0) {
           fitness = (double) player39.evaluation_.evaluate(this.genes);
       }

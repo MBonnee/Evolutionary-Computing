@@ -72,7 +72,7 @@ public class player39 implements ContestSubmission {
         // Run your algorithm here
         int evals = 0;
         // init islands with populations
-        ArrayList<Island> islands = initIslands(this.numIslands, this.popSize);
+        ArrayList<Island> islands = initIslands(numIslands, popSize);
 
         for (Island island : islands) {
             System.out.println("ISLAND FITTEST INDIVIDUAL:");
