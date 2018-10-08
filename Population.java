@@ -10,13 +10,13 @@ public class Population {
      * Constructors
      */
     // Create a population
-    public Population(int populationSize, boolean initialise) {
+    public Population(int populationSize, int islandId, boolean initialise) {
         individuals = new ArrayList<Individual>();
         // Initialise population
         if (initialise) {
             // Loop and create individuals
             for (int i = 0; i < populationSize; i++) {
-                individuals.add(new Individual());
+                individuals.add(new Individual(islandId));
             }
         }
     }

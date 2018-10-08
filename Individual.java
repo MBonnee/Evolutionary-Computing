@@ -2,6 +2,7 @@ import java.util.Comparator;
 
 public class Individual {
 
+  public int initialIsland = -1;
   static int defaultGeneLength = 10;
   private double genes[];
   // Cache
@@ -9,12 +10,13 @@ public class Individual {
 
   // Create a random individual
   // DO SOME DIFFERENT RANDOMIZATION AND EXPLORATION/EXPLOITATION INITS HERE
-  public Individual() {
+  public Individual(int initialIsl) {
       genes = new double[defaultGeneLength];
       for (int i = 0; i < defaultGeneLength; i++) {
           genes[i] = Math.random();
       }
       fitness = 0.0;
+      initialIsland = initialIsl;
   }
 
   /* Getters and setters */
@@ -58,8 +60,6 @@ public class Individual {
 
 class SortByFitness implements Comparator<Individual> 
 { 
-    // Used for sorting in ascending order of 
-    // roll number 
     public int compare(Individual a, Individual b) 
     { 
         return -Double.compare(a.getFitness(), b.getFitness()); 

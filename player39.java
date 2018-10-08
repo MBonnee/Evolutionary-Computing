@@ -58,7 +58,7 @@ public class player39 implements ContestSubmission {
     private ArrayList<Island> initIslands(int num, int pop_size) {
       ArrayList<Island> islands = new ArrayList<Island>();
       for (int i = 0; i < num; i++) {
-        Island island = new Island(pop_size);
+        Island island = new Island(pop_size, i+1);
         islands.add(island);
       } 
       return islands;
@@ -83,8 +83,9 @@ public class player39 implements ContestSubmission {
             island.population.sortPopulation();
             System.out.println(island.population.individuals.get(0).getFitness());
             System.out.println(island.population.individuals.get(1).getFitness());
+            System.out.println(island.population.individuals.get(1).initialIsland);
+            System.out.println("----");
 
-            break;
         }
 
         // init population on islands

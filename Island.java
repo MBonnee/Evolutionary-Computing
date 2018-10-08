@@ -5,8 +5,8 @@ public class Island {
     private double migrationRate;
     private double islandFitness;
 
-    public Island(int populationSize) {
-        population = new Population(populationSize, true);
+    public Island(int populationSize, int id) {
+        population = new Population(populationSize, id, true);
         migrationRate = 0.0;
         islandFitness = 0.0;
     }
