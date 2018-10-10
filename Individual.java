@@ -2,6 +2,7 @@ import java.util.Comparator;
 
 public class Individual {
 
+  public int decimals = 1;
   public int initialIsland = -1;
   static int defaultGeneLength = 10;
   private double genes[];
@@ -13,7 +14,7 @@ public class Individual {
   public Individual(int initialIsl) {
       genes = new double[defaultGeneLength];
       for (int i = 0; i < defaultGeneLength; i++) {
-          genes[i] = Math.random();
+          genes[i] = (double) Math.round((Math.random()*10 - 5)*Math.pow(10, decimals))/(Math.pow(10, decimals));
       }
       fitness = 0.0;
       initialIsland = initialIsl;
