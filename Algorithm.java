@@ -4,34 +4,33 @@ import java.util.*;
 public class Algorithm {
 	int decimals = 1;
 	
-//	public ArrayList<Individual> reproduction(ArrayList<Individual> parents){
-//		int totalLength = 
-//		ArrayList<Individual> childeren = new ArrayList<Individual>();
-//		double rnd = Math.random();
-////		System.out.println("Random nr: " + rnd*8);
-//		int split = (int) Math.round((rnd*8)/2)*2;
-////		System.out.println("Split = " + split);
-//		for(int i = 0; i < split; i+= 2) {
-//			childeren.add(nPointCrossOver(parents.get(i), parents.get(i+1), 0));
-//		}
-//		for(int j = split; j < parents.size(); j++) {
-//			mutateRandom(parents.get(j), 0.3);
-//		}
-////		System.out.println(childeren.size());
-//		return childeren;
-//	}
-	
 	public ArrayList<Individual> reproduction(ArrayList<Individual> parents){
 		ArrayList<Individual> childeren = new ArrayList<Individual>();
-		int split = 2;
+		double rnd = Math.random();
+		System.out.println("Random nr: " + rnd*parents.size());
+		int split = (int) Math.round((rnd*parents.size())/2)*2;
+		System.out.println("Split = " + split);
 		for(int i = 0; i < split; i+= 2) {
-			childeren.add(nPointCrossOver(parents.get(i), parents.get(i+1), 0));
+			childeren.add(nPointCrossOver(parents.get(i), parents.get(i+1), 1));
 		}
 		for(int j = split; j < parents.size(); j++) {
-			childeren.add(mutateRandom(parents.get(j), 0.1));
+			childeren.add(mutateRandom(parents.get(j), 0.2));
 		}
+		System.out.println(childeren.size());
 		return childeren;
 	}
+	
+//	public ArrayList<Individual> reproduction(ArrayList<Individual> parents){
+//		ArrayList<Individual> childeren = new ArrayList<Individual>();
+//		int split = 2;
+//		for(int i = 0; i < split; i+= 2) {
+//			childeren.add(nPointCrossOver(parents.get(i), parents.get(i+1), 1));
+//		}
+//		for(int j = split; j < parents.size(); j++) {
+//			childeren.add(mutateRandom(parents.get(j), 0.1));
+//		}
+//		return childeren;
+//	}
 	
 	
 	
