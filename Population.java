@@ -8,13 +8,15 @@ public class Population {
 
     public ArrayList<Individual> individuals;
     public double fitness = 0.0;
-
+    public int popSize = 0;
+    
     /*
      * Constructors
      */
     // Create a population
     public Population(int populationSize, int islandId, boolean initialise) {
-        individuals = new ArrayList<Individual>();
+        popSize = populationSize;
+    	individuals = new ArrayList<Individual>();
         // Initialise population
         if (initialise) {
             // Loop and create individuals
@@ -68,20 +70,30 @@ public class Population {
       individuals.add(index,indiv);
   }
   
+  public void selectSurvivers(){
+	  ArrayList<Individual> survivors = new ArrayList<Individual>(); 
+	  for(int i = 0; i < popSize; i++) {
+		  survivors.add(individuals.get(i));
+	  }
+	  individuals = survivors;  
+  }
+  
+  
   public ArrayList<Individual> getTop(int numberOfBest){
 	  ArrayList<Individual> bestIndividual = new ArrayList<Individual>(); 
 	  sortPopulation();
-	  for(int i = 0; i<numberOfBest+1; i++){
+	  for(int i = 0; i<numberOfBest; i++){
 		  bestIndividual.add(individuals.get(i));
 	  }
 	  return bestIndividual;
   }
   
+
   public ArrayList<Individual> getBottom(int numberOfWorst){
 	  ArrayList<Individual> worstIndividual = new ArrayList<Individual>(); 
 	  sortPopulation();
-	  for(int i = 0; i<numberOfWorst+1; i++){
-		  worstIndividual.add(individuals.get(individuals.size()-i));
+	  for(int i = 0; i<numberOfWorst; i++){
+		  worstIndividual.add(individuals.get(individuals.size()-i-1));
 	  }
 	  return worstIndividual;
   }
@@ -89,11 +101,17 @@ public class Population {
   public ArrayList<Individual> twoWayTournamentSelection(int numberOfParents){
 	  ArrayList<Individual> parents = new ArrayList<Individual>();
 	  
-	  for(int i=0; i<numberOfParents+1;i++){
-		  int randomNum = ThreadLocalRandom.current().nextInt(0, individuals.size() + 1);
+	  for(int i=0; i<numberOfParents;i++){
+		  int randomNum = ThreadLocalRandom.current().nextInt(0, individuals.size());
 		  Individual contestant1 = individuals.get(randomNum);
-		  int randomNum2 = ThreadLocalRandom.current().nextInt(0, individuals.size() + 1);
+		  int randomNum2 = ThreadLocalRandom.current().nextInt(0, individuals.size());
 		  Individual contestant2 = individuals.get(randomNum2);
+		  
+		  System.out.println("Toernooi start.");
+		  System.out.println("Fitness 1 is: " + contestant1.getFitness() + " Op contestant :" + randomNum);
+		  System.out.println("Fitness 2 is: " + contestant2.getFitness()+ " Op contestant :" + randomNum2);
+		  System.out.println("Toernooi komt ten einde.");
+		  
 		  if(contestant1.getFitness() > contestant2.getFitness()){
 			  parents.add(contestant1);
 		  }else{
@@ -103,6 +121,15 @@ public class Population {
 	 return parents;
   }
 
+  public String getFitnesses() {
+	  String output = "Individuals: \n";
+	  for (Individual ind : this.individuals) 
+	  { 
+		  output+= ind.fitness + "\n";
+	  }
+	  return output;
+  }
+  
     @Override
     public String toString() {
       String output = "Individuals: \n";
