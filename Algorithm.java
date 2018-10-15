@@ -47,7 +47,7 @@ public class Algorithm {
 	}
 
 	
-	public void onePointCrossOver(Individual indiv1, Individual indiv2, LinkedList<Integer> places, Individual child) {
+	private void onePointCrossOver(Individual indiv1, Individual indiv2, LinkedList<Integer> places, Individual child) {
 		for(int i = 0; i < child.size(); i++) {
 			if(i >= places.get(0)) {
 				child.setGene(i, indiv2.getGene(i));
@@ -57,7 +57,7 @@ public class Algorithm {
 		}
 	}
 	
-	public void twoPointCrossOver(Individual indiv1, Individual indiv2, LinkedList<Integer> places, Individual child) {
+	private void twoPointCrossOver(Individual indiv1, Individual indiv2, LinkedList<Integer> places, Individual child) {
 		for(int i = 0; i < child.size(); i++) {
 			if(i >= places.get(0) && i < places.get(1)) {
 				child.setGene(i, indiv2.getGene(i));
@@ -67,7 +67,7 @@ public class Algorithm {
 		}
 	}
 	
-	public void threePointCrossOver(Individual indiv1, Individual indiv2, LinkedList<Integer> places, Individual child) {
+	private void threePointCrossOver(Individual indiv1, Individual indiv2, LinkedList<Integer> places, Individual child) {
 		for(int i = 0; i < child.size(); i++) {
 			if((i >= places.get(0) && i < places.get(1)) || i >= places.get(2)) {
 				child.setGene(i, indiv2.getGene(i));
@@ -77,7 +77,7 @@ public class Algorithm {
 		}
 	}
 	
-	public void fourPointCrossOver(Individual indiv1, Individual indiv2, LinkedList<Integer> places, Individual child) {
+	private void fourPointCrossOver(Individual indiv1, Individual indiv2, LinkedList<Integer> places, Individual child) {
 		for(int i = 0; i < child.size(); i++) {
 			if((i >= places.get(0) && i < places.get(1)) || (i >= places.get(2) && i < places.get(3))) {
 				child.setGene(i, indiv2.getGene(i));
@@ -86,67 +86,6 @@ public class Algorithm {
 			}
 		}
 	}
-	
-//	public Individual childOnePointCrossover(Individual indiv1, Individual indiv2, LinkedList<Integer> places) {
-//		double mergePoint = Math.round(Math.random()*10*10)/10;
-//		Individual child = new Individual(indiv1.initialIsland);
-//		for(int i = 0; i < child.size(); i++) {
-//			if(i >= mergePoint) {
-//				child.setGene(i, indiv1.getGene(i));
-//			}else {
-//				child.setGene(i, indiv2.getGene(i));
-//			}
-//		}
-//		return child;
-//	}
-//	
-//	public Individual childTwoPointCrossover(Individual indiv1, Individual indiv2) {
-//		double mergePoint1 = Math.round(Math.random()*5*10)/10;
-//		double mergePoint2 = Math.round(Math.random()*5*10)/10 + 5;
-//		System.out.println("Merge points: " + mergePoint1 + " - " + mergePoint2);
-//		Individual child = new Individual(indiv1.initialIsland);
-//		for(int i = 0; i < child.size(); i++) {
-//			if(i >= mergePoint1 && i < mergePoint2) {
-//				child.setGene(i, indiv1.getGene(i));
-//			}else {
-//				child.setGene(i, indiv2.getGene(i));
-//			}
-//		}
-//		return child;
-//	}
-//	
-//	public Individual childThreePointCrossover(Individual indiv1, Individual indiv2) {
-//		double mergePoint1 = Math.round(Math.random()*3*10)/10;
-//		double mergePoint2 = Math.round(Math.random()*3*10)/10 + 3;
-//		double mergePoint3 = Math.round(Math.random()*4*10)/10 + 6;
-//		System.out.println("Merge points: " + mergePoint1 + " - " + mergePoint2 + " - " + mergePoint3);
-//		Individual child = new Individual(indiv1.initialIsland);
-//		for(int i = 0; i < child.size(); i++) {
-//			if((i >= mergePoint1 && i < mergePoint2) || i >= mergePoint3) {
-//				child.setGene(i, indiv1.getGene(i));
-//			}else {
-//				child.setGene(i, indiv2.getGene(i));
-//			}
-//		}
-//		return child;
-//	}
-//	
-//	public Individual childFourPointCrossover(Individual indiv1, Individual indiv2) {
-//		double mergePoint1 = Math.round(Math.random()*3*10)/10;
-//		double mergePoint2 = Math.round(Math.random()*2*10)/10 + 3;
-//		double mergePoint3 = Math.round(Math.random()*2*10)/10 + 5;
-//		double mergePoint4 = Math.round(Math.random()*3*10)/10 + 7;
-//		System.out.println("Merge points: " + mergePoint1 + " - " + mergePoint2 + " - " + mergePoint3 + " - " + mergePoint4);
-//		Individual child = new Individual(indiv1.initialIsland);
-//		for(int i = 0; i < child.size(); i++) {
-//			if((i >= mergePoint1 && i < mergePoint2) || (i >= mergePoint3 && i < mergePoint4)) {
-//				child.setGene(i, indiv1.getGene(i));
-//			}else {
-//				child.setGene(i, indiv2.getGene(i));
-//			}
-//		}
-//		return child;
-//	}
 	
 	public void randomPointCrossOver(Individual indiv1, Individual indiv2, LinkedList<Integer> places, Individual child) {
 		double random = Math.random();
