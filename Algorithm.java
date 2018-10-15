@@ -4,6 +4,25 @@ import java.util.*;
 public class Algorithm {
 	int decimals = 1;
 	
+	public ArrayList<Individual> reproduction(ArrayList<Individual> parents){
+		ArrayList<Individual> childeren = new ArrayList<Individual>();
+		double rnd = Math.random();
+//		System.out.println("Random nr: " + rnd*8);
+		int split = (int) Math.round((rnd*8)/2)*2;
+//		System.out.println("Split = " + split);
+		for(int i = 0; i < split; i+= 2) {
+			childeren.add(nPointCrossOver(parents.get(i), parents.get(i+1), 0));
+		}
+		for(int j = split; j < parents.size(); j++) {
+			mutateRandom(parents.get(j), 0.3);
+		}
+//		System.out.println(childeren.size());
+		return childeren;
+	}
+	
+	
+	
+	
 	public Individual uniformCrossOver(Individual indiv1, Individual indiv2, int mergeRate) {
 		Individual child = new Individual(indiv1.initialIsland);
 		for(int i = 0; i < child.size(); i++) {
@@ -17,6 +36,10 @@ public class Algorithm {
 	}
 	
 	public Individual nPointCrossOver(Individual indiv1, Individual indiv2, int num) {
+		if(num < 1 || num > 4) {
+			num = (int) Math.round(Math.random()*4+0.5);
+//			System.out.println("Doing random point crossover: " + num);
+		}
 		Individual child = new Individual(indiv1.initialIsland);
 		LinkedList<Integer> places = new LinkedList<Integer>();
 		for(int i = 0; i < num; i++) {
@@ -29,7 +52,7 @@ public class Algorithm {
 			}
 		}
 		Collections.sort(places);
-		System.out.println(places);
+//		System.out.println(places);
 
         switch (num) {
             case 1:  onePointCrossOver(indiv1, indiv2, places, child);
@@ -44,6 +67,19 @@ public class Algorithm {
                      break;
         }
 		return child;
+	}
+	
+	public void randomPointCrossOver(Individual indiv1, Individual indiv2, LinkedList<Integer> places, Individual child) {
+		double random = Math.random();
+		if(random <= 0.25) {
+			onePointCrossOver(indiv1, indiv2, places, child);
+		}else if(random <= 0.5) {
+			twoPointCrossOver(indiv1, indiv2, places, child);
+		}else if(random <= 0.75) {
+			threePointCrossOver(indiv1, indiv2, places, child);
+		}else {
+			fourPointCrossOver(indiv1, indiv2, places, child);
+		}
 	}
 
 	
@@ -84,19 +120,6 @@ public class Algorithm {
 			}else {
 				child.setGene(i, indiv1.getGene(i));
 			}
-		}
-	}
-	
-	public void randomPointCrossOver(Individual indiv1, Individual indiv2, LinkedList<Integer> places, Individual child) {
-		double random = Math.random();
-		if(random <= 0.25) {
-			onePointCrossOver(indiv1, indiv2, places, child);
-		}else if(random <= 0.5) {
-			twoPointCrossOver(indiv1, indiv2, places, child);
-		}else if(random <= 0.75) {
-			threePointCrossOver(indiv1, indiv2, places, child);
-		}else {
-			fourPointCrossOver(indiv1, indiv2, places, child);
 		}
 	}
 	
