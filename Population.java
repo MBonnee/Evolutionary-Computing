@@ -64,6 +64,16 @@ public class Population {
   public int size() {
       return individuals.size();
   }
+  
+  public void addChilderen(ArrayList<Individual> childeren) {
+	  for(Individual child: childeren) {
+		  addIndividual(child);
+	  }
+  }
+  
+  public void addIndividual(Individual indiv) {
+	  individuals.add(indiv);
+  }
 
   // Save individual
   public void saveIndividual(int index, Individual indiv) {
