@@ -4,22 +4,34 @@ import java.util.*;
 public class Algorithm {
 	int decimals = 1;
 	
+//	public ArrayList<Individual> reproduction(ArrayList<Individual> parents){
+//		int totalLength = 
+//		ArrayList<Individual> childeren = new ArrayList<Individual>();
+//		double rnd = Math.random();
+////		System.out.println("Random nr: " + rnd*8);
+//		int split = (int) Math.round((rnd*8)/2)*2;
+////		System.out.println("Split = " + split);
+//		for(int i = 0; i < split; i+= 2) {
+//			childeren.add(nPointCrossOver(parents.get(i), parents.get(i+1), 0));
+//		}
+//		for(int j = split; j < parents.size(); j++) {
+//			mutateRandom(parents.get(j), 0.3);
+//		}
+////		System.out.println(childeren.size());
+//		return childeren;
+//	}
+	
 	public ArrayList<Individual> reproduction(ArrayList<Individual> parents){
 		ArrayList<Individual> childeren = new ArrayList<Individual>();
-		double rnd = Math.random();
-//		System.out.println("Random nr: " + rnd*8);
-		int split = (int) Math.round((rnd*8)/2)*2;
-//		System.out.println("Split = " + split);
+		int split = 2;
 		for(int i = 0; i < split; i+= 2) {
 			childeren.add(nPointCrossOver(parents.get(i), parents.get(i+1), 0));
 		}
 		for(int j = split; j < parents.size(); j++) {
-			mutateRandom(parents.get(j), 0.3);
+			childeren.add(mutateRandom(parents.get(j), 0.1));
 		}
-//		System.out.println(childeren.size());
 		return childeren;
 	}
-	
 	
 	
 	
@@ -81,7 +93,6 @@ public class Algorithm {
 			fourPointCrossOver(indiv1, indiv2, places, child);
 		}
 	}
-
 	
 	private void onePointCrossOver(Individual indiv1, Individual indiv2, LinkedList<Integer> places, Individual child) {
 		for(int i = 0; i < child.size(); i++) {
@@ -123,13 +134,18 @@ public class Algorithm {
 		}
 	}
 	
-	public void mutateRandom(Individual indiv, double mutationProbability) {
+	public Individual mutateRandom(Individual indiv, double mutationProbability) {
+		Individual mutated = new Individual(indiv.initialIsland);
+		for(int i = 0; i < indiv.size(); i++) {
+			mutated.setGene(i, indiv.getGene(i));
+		}
 		double mutationProb = mutationProbability;
 		for(int i = 0; i < indiv.size(); i++) {
 			if(Math.random() < mutationProb) {
-				indiv.setGene(i, Math.round((Math.random()*10 - 5)*Math.pow(10, decimals))/(Math.pow(10, decimals)));
+				mutated.setGene(i, Math.round((Math.random()*10 - 5)*Math.pow(10, decimals))/(Math.pow(10, decimals)));
 			}
 		}
+		return mutated;
 	}
 	
 	public void mutateMoveRight(Individual indiv, int times) {

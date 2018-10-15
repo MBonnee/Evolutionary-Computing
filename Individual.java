@@ -1,20 +1,20 @@
 import java.util.Comparator;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Individual {
 
-  public int decimals = 1;
   public int initialIsland = -1;
   static int defaultGeneLength = 10;
   private double genes[];
   // Cache
-  private Double fitness = 0.0;
+  public Double fitness = 0.0;
 
   // Create a random individual
   // DO SOME DIFFERENT RANDOMIZATION AND EXPLORATION/EXPLOITATION INITS HERE
   public Individual(int initialIsl) {
       genes = new double[defaultGeneLength];
       for (int i = 0; i < defaultGeneLength; i++) {
-          genes[i] = (double) Math.round((Math.random()*10 - 5)*Math.pow(10, decimals))/(Math.pow(10, decimals));
+          genes[i] = Math.random();
       }
       fitness = 0.0;
       initialIsland = initialIsl;

@@ -80,7 +80,7 @@ public class Population {
       individuals.add(index,indiv);
   }
   
-  public void selectSurvivers(){
+  public void selectSurvivors(){
 	  sortPopulation();
 	  ArrayList<Individual> survivors = new ArrayList<Individual>(); 
 	  for(int i = 0; i < popSize; i++) {
@@ -118,10 +118,10 @@ public class Population {
 		  int randomNum2 = ThreadLocalRandom.current().nextInt(0, individuals.size());
 		  Individual contestant2 = individuals.get(randomNum2);
 		  
-		  System.out.println("Toernooi start.");
-		  System.out.println("Fitness 1 is: " + contestant1.getFitness() + " Op contestant :" + randomNum);
-		  System.out.println("Fitness 2 is: " + contestant2.getFitness()+ " Op contestant :" + randomNum2);
-		  System.out.println("Toernooi komt ten einde.");
+		  //System.out.println("Toernooi start.");
+		  //System.out.println(contestant1.getFitness());
+		  //System.out.println(contestant2.getFitness());
+		  //System.out.println("Toernooi komt ten einde.");
 		  
 		  if(contestant1.getFitness() > contestant2.getFitness()){
 			  parents.add(contestant1);
@@ -136,7 +136,8 @@ public class Population {
 	  String output = "Individuals: \n";
 	  for (Individual ind : this.individuals) 
 	  { 
-		  output+= ind.fitness + "\n";
+		  //output+= ind.fitness + "\n";
+		System.out.println(ind.fitness);
 	  }
 	  return output;
   }

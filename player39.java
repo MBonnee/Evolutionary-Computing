@@ -11,8 +11,8 @@ public class player39 implements ContestSubmission {
     // changed this to public static to be able to reference it in Individual.java
     public static ContestEvaluation evaluation_;
     private int evaluations_limit_;
-    private int numIslands = 10;
-    private int popSize = 10;
+    private int numIslands = 1;
+    private int popSize = 1;
 
     public player39() {
         rnd_ = new Random();
@@ -69,6 +69,7 @@ public class player39 implements ContestSubmission {
     ///
     
     public void run() {
+	System.out.println(evaluations_limit_);
         // Run your algorithm here
         int evals = 0;
         // init islands with populations
@@ -77,40 +78,56 @@ public class player39 implements ContestSubmission {
         for (Island island : islands) {
             System.out.println("ISLAND FITTEST INDIVIDUAL:");
             //System.out.println(island.population.getFittestIndividual().toString());
-            //System.out.println(island.population.getFittestIndividual().getFitness());
-            System.out.println(island.population.individuals.get(0).getFitness());
-            System.out.println(island.population.individuals.get(1).getFitness());
+            System.out.println(island.population.getFittestIndividual().getFitness());
+            //System.out.println(island.population.individuals.get(0).getFitness());
+            //System.out.println(island.population.individuals.get(1).getFitness());
             System.out.println("Average");
             System.out.println(island.population.getAveragePopulationFitness());
-            island.population.sortPopulation();
-            System.out.println(island.population.individuals.get(0).getFitness());
-            System.out.println(island.population.individuals.get(1).getFitness());
-            System.out.println(island.population.individuals.get(1).initialIsland);
+            //island.population.sortPopulation();
+            //System.out.println(island.population.individuals.get(0).getFitness());
+            //System.out.println(island.population.individuals.get(1).getFitness());
+            //System.out.println(island.population.individuals.get(1).initialIsland);
             System.out.println("----");
 
         }
 
         // init population on islands
         // calculate fitness
-        
-        while(evals<evaluations_limit_){
+        Population population = islands.get(0).getPopulation();
+	
+	System.out.println(population.individuals.get(0).getFitness());	
+
+        while(evals<2000){
 
             if (evals % 3 == 0) {
               // do a migration round
             } else {
               // evolve locally
             }
-
+	//System.out.println("--nieuwe eval--");
+		//System.out.println(" OUDE FITNESS" );
+		population.sortPopulation();
+		//population.getFitnesses();
+	//System.out.println(population.getFitnesses());
+		//System.out.println(population.getAveragePopulationFitness());
             // Select parents
-
+		ArrayList<Individual> parents = population.twoWayTournamentSelection(3);
             // Apply crossover / mutation operators
-
+		Algorithm alg = new Algorithm();
+		ArrayList<Individual> childeren = alg.reproduction(parents);
+        	population.addChilderen(childeren);	
             // Check fitness of unknown fuction
-            evals++;
+		population.selectSurvivors();
+            	evals++;
             // Select survivors
-
+		//System.out.println(" NIEUWE FITNESS" );
+population.sortPopulation();
+		//population.getFitnesses();
+		System.out.println(population.getAveragePopulationFitness());
             // migrate
         }
+	System.out.println(" NIEUWE FITNESSes" );
+	population.getFitnesses();
     }
     
     public static void main(String[] args) {
