@@ -71,6 +71,7 @@ public class Population {
   }
   
   public void selectSurvivers(){
+	  sortPopulation();
 	  ArrayList<Individual> survivors = new ArrayList<Individual>(); 
 	  for(int i = 0; i < popSize; i++) {
 		  survivors.add(individuals.get(i));
