@@ -35,6 +35,10 @@ public class Population {
         return individuals.size();
     }
 
+    public void removeIndividual(Individual indiv){
+        individuals.remove(indiv);
+    }
+
     public double getAveragePopulationFitness() {
       double sum = 0.0;
       for (Individual ind : individuals) {
@@ -123,7 +127,7 @@ public class Population {
 		  //System.out.println(contestant2.getFitness());
 		  //System.out.println("Toernooi komt ten einde.");
 		  
-		  if(contestant1.getFitness() > contestant2.getFitness()){
+		  if(contestant1.fitness > contestant2.fitness){
 			  parents.add(contestant1);
 		  }else{
 			  parents.add(contestant2);

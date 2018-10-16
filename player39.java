@@ -69,7 +69,7 @@ public class player39 implements ContestSubmission {
     ///
     
     public void run() {
-	System.out.println(evaluations_limit_);
+	    System.out.println(evaluations_limit_);
         // Run your algorithm here
         int evals = 0;
         // init islands with populations
@@ -95,7 +95,7 @@ public class player39 implements ContestSubmission {
         // calculate fitness
         Population population = islands.get(0).getPopulation();
 	
-	System.out.println(population.individuals.get(0).getFitness());	
+	    System.out.println(population.individuals.get(0).getFitness());	
 
         while(evals<2000){
 
@@ -104,30 +104,30 @@ public class player39 implements ContestSubmission {
             } else {
               // evolve locally
             }
-	//System.out.println("--nieuwe eval--");
-		//System.out.println(" OUDE FITNESS" );
-		population.sortPopulation();
-		//population.getFitnesses();
-	//System.out.println(population.getFitnesses());
-		//System.out.println(population.getAveragePopulationFitness());
+	        //System.out.println("--nieuwe eval--");
+		    //System.out.println(" OUDE FITNESS" );
+		    population.sortPopulation();
+		    //population.getFitnesses();
+	        //System.out.println(population.getFitnesses());
+		    //System.out.println(population.getAveragePopulationFitness());
             // Select parents
-		ArrayList<Individual> parents = population.twoWayTournamentSelection(3);
+		    ArrayList<Individual> parents = population.twoWayTournamentSelection(3);
             // Apply crossover / mutation operators
-		Algorithm alg = new Algorithm();
-		ArrayList<Individual> childeren = alg.reproduction(parents);
-        	population.addChilderen(childeren);	
+		    Algorithm alg = new Algorithm();
+		    ArrayList<Individual> childeren = alg.reproduction(parents);
+            population.addChilderen(childeren);	
             // Check fitness of unknown fuction
-		population.selectSurvivors();
-            	evals++;
+		    population.selectSurvivors();
+            evals++;
             // Select survivors
-		//System.out.println(" NIEUWE FITNESS" );
-population.sortPopulation();
-		//population.getFitnesses();
-		System.out.println(population.getAveragePopulationFitness());
+		    //System.out.println(" NIEUWE FITNESS" );
+            population.sortPopulation();
+		    //population.getFitnesses();
+		    System.out.println(population.getAveragePopulationFitness());
             // migrate
         }
-	System.out.println(" NIEUWE FITNESSes" );
-	population.getFitnesses();
+	    System.out.println(" NIEUWE FITNESSes" );
+	    population.getFitnesses();
     }
     
     public static void main(String[] args) {

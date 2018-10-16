@@ -7,7 +7,7 @@ public class Individual {
   static int defaultGeneLength = 10;
   private double genes[];
   // Cache
-  public Double fitness = 0.0;
+  public double fitness;
 
   // Create a random individual
   // DO SOME DIFFERENT RANDOMIZATION AND EXPLORATION/EXPLOITATION INITS HERE
@@ -16,7 +16,7 @@ public class Individual {
       for (int i = 0; i < defaultGeneLength; i++) {
           genes[i] = Math.random();
       }
-      fitness = 0.0;
+      fitness = (double) player39.evaluation_.evaluate(this.genes);
       initialIsland = initialIsl;
   }
 
@@ -56,6 +56,17 @@ public class Individual {
       geneString += "}";
       return geneString;
   }
+
+  public boolean equals(Object obj){
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof Individual)) return false;
+    Individual o = (Individual) obj;
+    return o.initialIsland == this.initialIsland &&
+        o.defaultGeneLength == this.defaultGeneLength &&
+        o.genes == this.genes &&
+        o.fitness == this.fitness;
+  }
  
 }
 
@@ -63,6 +74,6 @@ class SortByFitness implements Comparator<Individual>
 { 
     public int compare(Individual a, Individual b) 
     { 
-        return -Double.compare(a.getFitness(), b.getFitness()); 
+        return -Double.compare(a.fitness, b.fitness); 
     } 
 } 
