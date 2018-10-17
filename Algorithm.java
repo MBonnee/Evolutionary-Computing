@@ -34,7 +34,7 @@ public class Algorithm {
 	public Individual nPointCrossOver(Individual indiv1, Individual indiv2, int num) {
 		if(num < 1 || num > 4) {
 			num = (int) Math.round(Math.random()*4+0.5);
-			System.out.println("Doing random point crossover: " + num);
+			// System.out.println("Doing random point crossover: " + num);
 		}
 		Individual child = new Individual(indiv1.initialIsland);
 		LinkedList<Integer> places = new LinkedList<Integer>();
