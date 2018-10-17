@@ -75,19 +75,15 @@ public class player39 implements ContestSubmission {
         ArrayList<Island> islands = initIslands(numIslands, popSize);
 
         for (Island island : islands) {
-            System.out.println("ISLAND FITTEST INDIVIDUAL:");
-            //System.out.println(island.population.getFittestIndividual().toString());
-            //System.out.println(island.population.getFittestIndividual().getFitness());
             System.out.println(island.population.individuals.get(0).getFitness());
             System.out.println(island.population.individuals.get(1).getFitness());
-            System.out.println("Average");
-            System.out.println(island.population.getAveragePopulationFitness());
             island.population.sortPopulation();
             System.out.println(island.population.individuals.get(0).getFitness());
             System.out.println(island.population.individuals.get(1).getFitness());
-            System.out.println(island.population.individuals.get(1).initialIsland);
-            System.out.println("----");
-
+            System.out.println("Initial island " + island.population.individuals.get(1).initialIsland);
+            System.out.println("Average " + island.population.getAveragePopulationFitness());
+            System.out.println(island.population.getFittestIndividual().getFitness() == island.population.individuals.get(0).getFitness());
+            break;
         }
 
         // init population on islands
