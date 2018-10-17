@@ -15,7 +15,7 @@ public class Population {
      */
     // Create a population
     public Population(int populationSize, int islandId, boolean initialise) {
-        popSize = populationSize;
+      popSize = populationSize;
     	individuals = new ArrayList<Individual>();
         // Initialise population
         if (initialise) {
@@ -141,7 +141,7 @@ public class Population {
 	  for (Individual ind : this.individuals) 
 	  { 
 		  //output+= ind.fitness + "\n";
-		System.out.println(ind.fitness);
+		//System.out.println(ind.fitness);
 	  }
 	  return output;
   }

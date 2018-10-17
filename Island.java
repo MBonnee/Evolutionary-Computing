@@ -8,14 +8,16 @@ public class Island {
     private double islandMutationRate;
     private double islandSplitPerc;
     private int islandCrossOverNr;
+    public int island_id;
 
     public Island(int populationSize, int id) {
         population = new Population(populationSize, id, true);
+        island_id = id;
         migrationRate = 0.0;
         islandFitness = 0.0;
         islandMutationRate = 0.2;//per gen % kans op mutation naar nieuwe random value
         islandSplitPerc = 0.5;// split voor hoeveel mutation en hoeveel crossover
-        islandCrossOverNr = 0;// 0 voor random, 1,2,3,4 voor n point crossover
+        islandCrossOverNr = 1;// 0 voor random, 1,2,3,4 voor n point crossover
     }
 
     public double getIslandFitness() {
@@ -45,7 +47,7 @@ public class Island {
     	
     	if(topFitness < 1.0) {
     		islandMutationRate += 0.2;
-    	}else if(topFitness > 9.0) {
+    	}else if(topFitness > 5.0) {
     		islandMutationRate -= 0.05;
         	islandSplitPerc += 0.1;
     	}
@@ -55,7 +57,7 @@ public class Island {
     	updateEvolveRate();
     	Algorithm alg = new Algorithm();
 	    ArrayList<Individual> childeren = alg.reproduction(parents, islandSplitPerc, islandCrossOverNr, islandMutationRate);
-        population.addChilderen(childeren);	
+       population.addChilderen(childeren);	
     }
 
     public void migration(Population population2){

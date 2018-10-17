@@ -5,14 +5,15 @@ import java.util.Random;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.ArrayList;
+import java.util.*;
 
 public class player39 implements ContestSubmission {
     Random rnd_;
     // changed this to public static to be able to reference it in Individual.java
     public static ContestEvaluation evaluation_;
     private int evaluations_limit_;
-    private int numIslands = 1;
-    private int popSize = 1;
+    private int numIslands = 2;
+    private int popSize = 10;
 
     public player39() {
         rnd_ = new Random();
@@ -80,58 +81,37 @@ public class player39 implements ContestSubmission {
         int evals = 0;
         // init islands with populations
         ArrayList<Island> islands = initIslands(numIslands, popSize);
-
-        for (Island island : islands) {
-            System.out.println("ISLAND FITTEST INDIVIDUAL:");
-            //System.out.println(island.population.getFittestIndividual().toString());
-            System.out.println(island.population.getFittestIndividual().getFitness());
-            //System.out.println(island.population.individuals.get(0).getFitness());
-            //System.out.println(island.population.individuals.get(1).getFitness());
-            System.out.println("Average");
-            System.out.println(island.population.getAveragePopulationFitness());
-            //island.population.sortPopulation();
-            //System.out.println(island.population.individuals.get(0).getFitness());
-            //System.out.println(island.population.individuals.get(1).getFitness());
-            //System.out.println(island.population.individuals.get(1).initialIsland);
-            System.out.println("----");
-
-        }
-
-        // init population on islands
-        // calculate fitness
-        Population population = islands.get(0).getPopulation();
-	
-	    System.out.println(population.individuals.get(0).getFitness());	
-
-        while(evals<2000){
-
-            if (evals % 3 == 0) {
-              population.sortPopulation();
-              // do a migration round
-            } else {
-              // evolve locally
+        while(evals<7){
+          if (evals % 3 == 0 && evals > 0) {
+            System.out.println(evals);
+            // sort populations on islands rank them, prepare migration pools
+            Map<Integer, Population> popMap = new HashMap<Integer, Population>();
+            Map<Integer, Double> avgMap = new HashMap<Integer, Double>();
+            for (Island island : islands) {
+              Population migPopulation = island.getPopulation();
+              migPopulation.sortPopulation();
+              popMap.put(island.island_id, migPopulation);
+              avgMap.put(island.island_id, migPopulation.getAveragePopulationFitness());
             }
-	        //System.out.println("--nieuwe eval--");
-		    //System.out.println(" OUDE FITNESS" );
-		    //population.getFitnesses();
-	        //System.out.println(population.getFitnesses());
-		    //System.out.println(population.getAveragePopulationFitness());
-            // Select parents
-		    ArrayList<Individual> parents = population.twoWayTournamentSelection(3);
-            // Apply crossover / mutation operators
-            islands.get(0).evolvePopulation(parents);
-            // Check fitness of unknown fuction
-		    population.selectSurvivors();
-            evals++;
-            // Select survivors
-		    //System.out.println(" NIEUWE FITNESS" );
-            population.sortPopulation();
-		    //population.getFitnesses();
-		    System.out.println(population.getAveragePopulationFitness());
-            // migrate
-        }
-	    System.out.println(" NIEUWE FITNESSes" );
-	    population.getFitnesses();
+            // TODO:
+            // get them ranked
+            // how to rank the averages?????
+            // based on this, we can do a migration
+            System.out.println(avgMap);
+         }
+          //
+          // evolve locally on islands
+          for (Island island : islands) {
+            Population islPopulation = island.getPopulation();
+            ArrayList<Individual> islParents = islPopulation.twoWayTournamentSelection(3);
+            // System.out.println(islParents);
+            island.evolvePopulation(islParents);
+            islPopulation.selectSurvivors();
+          }
+        
+        // TODO: DO LOGGING HERE
+        evals++;
+      } 
     }
     
     public static void main(String[] args) {
