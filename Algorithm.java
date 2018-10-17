@@ -4,35 +4,19 @@ import java.util.*;
 public class Algorithm {
 	int decimals = 1;
 	
-	public ArrayList<Individual> reproduction(ArrayList<Individual> parents){
+	public ArrayList<Individual> reproduction(ArrayList<Individual> parents, double splitPerc, int crossOver, double mutationRate){
 		ArrayList<Individual> childeren = new ArrayList<Individual>();
-		double rnd = Math.random();
-		System.out.println("Random nr: " + rnd*parents.size());
-		int split = (int) Math.round((rnd*parents.size())/2)*2;
+		int split = (int) Math.round((splitPerc*parents.size())/2)*2;
 		System.out.println("Split = " + split);
 		for(int i = 0; i < split; i+= 2) {
-			childeren.add(nPointCrossOver(parents.get(i), parents.get(i+1), 1));
+			childeren.add(nPointCrossOver(parents.get(i), parents.get(i+1), crossOver));
 		}
 		for(int j = split; j < parents.size(); j++) {
-			childeren.add(mutateRandom(parents.get(j), 0.2));
+			childeren.add(mutateRandom(parents.get(j), mutationRate));
 		}
 		System.out.println(childeren.size());
 		return childeren;
-	}
-	
-//	public ArrayList<Individual> reproduction(ArrayList<Individual> parents){
-//		ArrayList<Individual> childeren = new ArrayList<Individual>();
-//		int split = 2;
-//		for(int i = 0; i < split; i+= 2) {
-//			childeren.add(nPointCrossOver(parents.get(i), parents.get(i+1), 1));
-//		}
-//		for(int j = split; j < parents.size(); j++) {
-//			childeren.add(mutateRandom(parents.get(j), 0.1));
-//		}
-//		return childeren;
-//	}
-	
-	
+	}	
 	
 	public Individual uniformCrossOver(Individual indiv1, Individual indiv2, int mergeRate) {
 		Individual child = new Individual(indiv1.initialIsland);

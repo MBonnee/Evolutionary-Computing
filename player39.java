@@ -119,9 +119,7 @@ public class player39 implements ContestSubmission {
             // Select parents
 		    ArrayList<Individual> parents = population.twoWayTournamentSelection(3);
             // Apply crossover / mutation operators
-		    Algorithm alg = new Algorithm();
-		    ArrayList<Individual> childeren = alg.reproduction(parents);
-            population.addChilderen(childeren);	
+            islands.get(0).evolvePopulation(parents);
             // Check fitness of unknown fuction
 		    population.selectSurvivors();
             evals++;
