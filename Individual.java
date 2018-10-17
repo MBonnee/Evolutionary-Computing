@@ -1,22 +1,22 @@
 import java.util.Comparator;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Individual {
 
-  public int decimals = 1;
   public int initialIsland = -1;
   static int defaultGeneLength = 10;
   private double genes[];
   // Cache
-  private Double fitness = 0.0;
+  public double fitness;
 
   // Create a random individual
   // DO SOME DIFFERENT RANDOMIZATION AND EXPLORATION/EXPLOITATION INITS HERE
   public Individual(int initialIsl) {
       genes = new double[defaultGeneLength];
       for (int i = 0; i < defaultGeneLength; i++) {
-          genes[i] = (double) Math.round((Math.random()*10 - 5)*Math.pow(10, decimals))/(Math.pow(10, decimals));
-      }
-      fitness = 0.0;
+          genes[i] = (Math.random() * ((5 + 5) + 1)) + -5.0;
+       }
+      fitness = (double) player39.evaluation_.evaluate(this.genes);
       initialIsland = initialIsl;
   }
 
@@ -56,6 +56,17 @@ public class Individual {
       geneString += "}";
       return geneString;
   }
+
+  public boolean equals(Object obj){
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof Individual)) return false;
+    Individual o = (Individual) obj;
+    return o.initialIsland == this.initialIsland &&
+        o.defaultGeneLength == this.defaultGeneLength &&
+        o.genes == this.genes &&
+        o.fitness == this.fitness;
+  }
  
 }
 
@@ -63,6 +74,6 @@ class SortByFitness implements Comparator<Individual>
 { 
     public int compare(Individual a, Individual b) 
     { 
-        return -Double.compare(a.getFitness(), b.getFitness()); 
+        return -Double.compare(a.fitness, b.fitness); 
     } 
 } 
