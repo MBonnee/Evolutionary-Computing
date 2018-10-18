@@ -195,7 +195,30 @@ public class Algorithm {
 			indiv.setGene(places.get(i), numbers.get(i));
 		}
 	}
-	
+
+    public static void eliteLadderMigration(ArrayList<Island> islands){
+        for(int i = 1; i < islands.size(); i++){
+            Population origin = islands.get(i).getPopulation();
+            Population destination = islands.get(i-1).getPopulation();
+            ArrayList<Individual> eliteIndivs = origin.getTop(origin.getPopulationsSize() / 10);
+            for (Individual indiv: eliteIndivs){
+                destination.addIndividual(indiv);
+                origin.removeIndividual(indiv);
+            }
+        }
+    }
+
+    public static void benchmarkMigration(ArrayList<Island> islands){
+        for(int i = 1; i < islands.size(); i++){
+            Population origin = islands.get(i).getPopulation();
+            Population destination = islands.get(i-1).getPopulation();
+            ArrayList<Individual> randomIndivs = origin.getRandom(origin.getPopulationsSize() / 10);
+            for (Individual indiv: randomIndivs){
+                destination.addIndividual(indiv);
+                origin.removeIndividual(indiv);
+            }
+        }
+    }
     // here we do all the mutation, crossover, selection methods etc.
     // Mutate an individual
     /*
