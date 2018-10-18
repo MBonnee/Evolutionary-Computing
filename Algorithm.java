@@ -15,6 +15,9 @@ public class Algorithm {
 		for(int j = split; j < parents.size(); j++) {
 			childeren.add(mutateRandom(parents.get(j), mutationRate));
 		}
+		for(Individual child: childeren) {
+			child.getFitness();
+		}
 		// System.out.println(childeren.size());
 		return childeren;
 	}	
