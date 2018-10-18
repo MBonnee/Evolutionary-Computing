@@ -12,8 +12,8 @@ public class player39 implements ContestSubmission {
     // changed this to public static to be able to reference it in Individual.java
     public static ContestEvaluation evaluation_;
     private int evaluations_limit_;
-    private int numIslands = 5;
-    private int popSize = 100;
+    private int numIslands = 1;
+    private int popSize = 10;
 
     public player39() {
         rnd_ = new Random();
@@ -43,6 +43,9 @@ public class player39 implements ContestSubmission {
 
         numIslands = Integer.parseInt(System.getProperty("NumIslands"));
         popSize= Integer.parseInt(System.getProperty("PopSize"));
+
+        numIslands = 4;
+        popSize = 15;
 
         if (! isMultimodal && ! hasStructure && !isSeparable) {
           // BentCigarFunction
