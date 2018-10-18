@@ -44,8 +44,8 @@ public class player39 implements ContestSubmission {
         numIslands = Integer.parseInt(System.getProperty("NumIslands"));
         popSize= Integer.parseInt(System.getProperty("PopSize"));
 
-        numIslands = 2;
-        popSize = 15;
+        numIslands = 6;
+        popSize = 100;
 
         if (! isMultimodal && ! hasStructure && !isSeparable) {
           // BentCigarFunction
@@ -99,20 +99,31 @@ public class player39 implements ContestSubmission {
             }
 
             List<Map.Entry<Island, Double>> list = new ArrayList<>(avgMap.entrySet());
+            Map<Island, Double> unrankedIslands = new LinkedHashMap<Island, Double>();
+            for (Map.Entry<Island, Double> entry : list) {
+                unrankedIslands.put(entry.getKey(), entry.getValue());
+            }
+            ArrayList<Island> unrankedIslandsList = new ArrayList<Island>();
+            unrankedIslandsList.addAll(unrankedIslands.keySet());
+
             list.sort(Map.Entry.comparingByValue());
+            Collections.reverse(list);
 
             Map<Island, Double> rankedIslands = new LinkedHashMap<Island, Double>();
             for (Map.Entry<Island, Double> entry : list) {
                 rankedIslands.put(entry.getKey(), entry.getValue());
             }
 
-
             ArrayList<Island> rankedIslandsList = new ArrayList<Island>();
             rankedIslandsList.addAll(rankedIslands.keySet());
-            System.out.println("Before migration: " + rankedIslandsList.get(0).getPopulation());
             Algorithm.eliteLadderMigration(rankedIslandsList);
-            System.out.println("After migration: " + rankedIslandsList.get(0).getPopulation());
-            Algorithm.benchmarkMigration(rankedIslandsList);
+            System.out.println("Before migration: " + unrankedIslandsList.get(1).getPopulation().getIndividual(99));
+            Algorithm.benchmarkMigration(unrankedIslandsList);
+            System.out.println("After migration: " + unrankedIslandsList.get(1).getPopulation().getIndividual(99));
+
+            for(int i = 0; i < unrankedIslandsList.size(); i++){
+                System.out.println("Size of island " + i + ": " + unrankedIslandsList.get(i).getPopulation().size());
+            }
 
          }
           //
