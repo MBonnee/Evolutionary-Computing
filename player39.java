@@ -12,8 +12,8 @@ public class player39 implements ContestSubmission {
     // changed this to public static to be able to reference it in Individual.java
     public static ContestEvaluation evaluation_;
     private int evaluations_limit_;
-    private int numIslands = 4;
-    private int popSize = 300;
+    private int numIslands = 5;
+    private int popSize = 100;
 
     public player39() {
         rnd_ = new Random();
@@ -81,8 +81,8 @@ public class player39 implements ContestSubmission {
         int evals = 0;
         // init islands with populations
         ArrayList<Island> islands = initIslands(numIslands, popSize);
-        while(evals<10000){
-          if (evals % 500 == 0 && evals > 0) {
+        while(evals<1000){
+          if (evals % 10 == 0 && evals > 0) {
             System.out.println(evals);
             // sort populations on islands rank them, prepare migration pools
             Map<Integer, Population> popMap = new HashMap<Integer, Population>();
@@ -103,7 +103,7 @@ public class player39 implements ContestSubmission {
           // evolve locally on islands
           for (Island island : islands) {
             Population islPopulation = island.getPopulation();
-            ArrayList<Individual> islParents = islPopulation.twoWayTournamentSelection(100);
+            ArrayList<Individual> islParents = islPopulation.twoWayTournamentSelection(30);
             // System.out.println(islParents);
             island.evolvePopulation(islParents);
             islPopulation.selectSurvivors();

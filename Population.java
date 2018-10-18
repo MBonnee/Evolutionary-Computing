@@ -52,7 +52,7 @@ public class Population {
         Individual fittest = individuals.get(0);
         // Loop through individuals to find fittest
         for (Individual individual: individuals) {
-            if (fittest.getFitness() <= individual.getFitness()) {
+            if (fittest.fitness <= individual.fitness) {
                 fittest = individual;
             }
         }
@@ -84,6 +84,8 @@ public class Population {
       individuals.add(index,indiv);
   }
   
+  // (mu + lambda)
+  // TODO: WHAT DO DO IF < INDIVIDUALS THAN POPSIZE?
   public void selectSurvivors(){
 	  sortPopulation();
 	  ArrayList<Individual> survivors = new ArrayList<Individual>(); 
@@ -121,13 +123,8 @@ public class Population {
 		  Individual contestant1 = individuals.get(randomNum);
 		  int randomNum2 = ThreadLocalRandom.current().nextInt(0, individuals.size());
 		  Individual contestant2 = individuals.get(randomNum2);
-		  
-		  //System.out.println("Toernooi start.");
-		  //System.out.println(contestant1.getFitness());
-		  //System.out.println(contestant2.getFitness());
-		  //System.out.println("Toernooi komt ten einde.");
-		  
-		  if(contestant1.fitness > contestant2.fitness){
+		  		  
+		  if(contestant1.fitness > contestant2.fitness) {
 			  parents.add(contestant1);
 		  }else{
 			  parents.add(contestant2);
@@ -141,7 +138,7 @@ public class Population {
 	  for (Individual ind : this.individuals) 
 	  { 
 		  //output+= ind.fitness + "\n";
-		//System.out.println(ind.fitness);
+		  System.out.println(ind.fitness);
 	  }
 	  return output;
   }

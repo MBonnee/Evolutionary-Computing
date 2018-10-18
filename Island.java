@@ -30,7 +30,7 @@ public class Island {
     
     private void updateEvolveRate() {
     	double popFitness = population.getAveragePopulationFitness();
-    	double topFitness = population.getFittestIndividual().getFitness();
+    	double topFitness = population.getFittestIndividual().fitness;
     	if(popFitness < 4.0) {
     		islandMutationRate = 0.5;
         	islandSplitPerc = 0;
@@ -56,8 +56,8 @@ public class Island {
     public void evolvePopulation(ArrayList<Individual> parents) {
     	updateEvolveRate();
     	Algorithm alg = new Algorithm();
-	    ArrayList<Individual> childeren = alg.reproduction(parents, islandSplitPerc, islandCrossOverNr, islandMutationRate);
-       population.addChilderen(childeren);	
+	    ArrayList<Individual> children = alg.reproduction(parents, islandSplitPerc, islandCrossOverNr, islandMutationRate);
+       population.addChilderen(children);	
     }
 
     public void migration(Population population2){

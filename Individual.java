@@ -16,7 +16,6 @@ public class Individual {
       for (int i = 0; i < defaultGeneLength; i++) {
           genes[i] = (Math.random() * ((5 + 5) + 1)) + -5.0;
        }
-      fitness = (double) player39.evaluation_.evaluate(this.genes);
       initialIsland = initialIsl;
   }
 
@@ -31,7 +30,7 @@ public class Individual {
   }
 
   public void setGene(int index, Double value) {
-      genes[index] = value;
+      this.genes[index] = value;
       fitness = 0.0;
   }
 
@@ -42,7 +41,7 @@ public class Individual {
 
   public Double getFitness() {
       if (fitness == 0.0) {
-          fitness = (double) player39.evaluation_.evaluate(this.genes);
+          this.fitness = (double) player39.evaluation_.evaluate(this.genes);
       }
       return fitness;
   }
