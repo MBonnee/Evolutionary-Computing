@@ -105,6 +105,14 @@ public class Population {
 	  return bestIndividual;
   }
   
+  public ArrayList<Individual> getRandom(int numberOfIndividuals){
+	  ArrayList<Individual> randomIndividuals = new ArrayList<Individual>(); 
+	  for(int i = 0; i<numberOfIndividuals; i++){
+		  randomIndividuals.add(individuals.get(i));
+	  }
+	  return randomIndividuals;
+  }
+  
 
   public ArrayList<Individual> getBottom(int numberOfWorst){
 	  ArrayList<Individual> worstIndividual = new ArrayList<Individual>(); 
