@@ -44,7 +44,7 @@ public class player39 implements ContestSubmission {
         numIslands = Integer.parseInt(System.getProperty("NumIslands"));
         popSize= Integer.parseInt(System.getProperty("PopSize"));
 
-        numIslands = 2;
+        numIslands = 4;
         popSize = 15;
 
         if (! isMultimodal && ! hasStructure && !isSeparable) {
