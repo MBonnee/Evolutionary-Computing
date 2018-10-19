@@ -1,5 +1,7 @@
 import java.util.Collections;
 import java.util.ArrayList;
+import java.util.HashMap;;
+
 
 public class Island {
     public Population population;
@@ -27,12 +29,27 @@ public class Island {
     public Population getPopulation() {
         return population;
     }
+
+    public HashMap<Integer,Integer> getDiversity(int numIslands) {
+        HashMap<Integer,Integer> frequencymap = new HashMap<Integer,Integer>();
+        for(Individual ind: population.individuals) {
+          if(frequencymap.containsKey(ind.initialIsland)) {
+            frequencymap.put(ind.initialIsland, frequencymap.get(ind.initialIsland)+1);
+          }
+          else{ frequencymap.put(ind.initialIsland, 1); }
+        }
+
+        // island id: occurence
+        // System.out.println(frequencymap);
+
+        return frequencymap;
+    }    
     
     private void updateEvolveRate() {
     	double popFitness = population.getAveragePopulationFitness();
     	double topFitness = population.getFittestIndividual().fitness;
     	if(popFitness < 4.0) {
-    		islandMutationRate = 0.5;
+    		  islandMutationRate = 0.5;
         	islandSplitPerc = 0;
         	islandCrossOverNr = 0;
     	}else if(popFitness < 7.0) {
@@ -40,17 +57,20 @@ public class Island {
         	islandSplitPerc = 0.3;
         	islandCrossOverNr = 0;
     	}else {
-    		islandMutationRate = 0.1;
+    		  islandMutationRate = 0.2;
         	islandSplitPerc = 0.6;
         	islandCrossOverNr = 0;
     	}
     	
     	if(topFitness < 1.0) {
-    		islandMutationRate += 0.2;
-    	}else if(topFitness > 5.0) {
+        islandMutationRate += 0.2;
+      }
+      else if (topFitness < 7) {
+        islandMutationRate += 0.1;
+     	}else if(topFitness > 7.0) {
     		islandMutationRate -= 0.05;
-        	islandSplitPerc += 0.1;
-    	}
+          islandSplitPerc += 0.1;
+       }
     }
     
     public void evolvePopulation(ArrayList<Individual> parents) {
@@ -60,6 +80,4 @@ public class Island {
        population.addChilderen(children);	
     }
 
-    // Get x amount of fittest individuals of the Island. place to fittest
-    // island.
 }

@@ -203,10 +203,10 @@ public class Algorithm {
         for(int i = 1; i < islands.size(); i++){
             Population origin = islands.get(i).getPopulation();
             Population destination = islands.get(i-1).getPopulation();
-            ArrayList<Individual> eliteIndivs = origin.getTop(origin.getPopulationsSize() / 10);
+            ArrayList<Individual> eliteIndivs = origin.getTop(origin.getPopulationsSize() / 2);
             for (Individual indiv: eliteIndivs){
                 destination.addIndividual(indiv);
-                origin.removeIndividual(indiv);
+                //origin.removeIndividual(indiv);
             }
         }
     }
@@ -215,12 +215,11 @@ public class Algorithm {
         for(int i = 1; i < islands.size(); i++){
             Population origin = islands.get(i).getPopulation();
             Population destination = islands.get(i-1).getPopulation();
-            ArrayList<Individual> randomIndivs = origin.getRandom(origin.getPopulationsSize() / 10);
+            ArrayList<Individual> randomIndivs = origin.getRandom(origin.getPopulationsSize() / 2);
             for (Individual indiv: randomIndivs){
                 destination.addIndividual(indiv);
-                origin.removeIndividual(indiv);
+                //origin.removeIndividual(indiv);
             }
         }
-  
     }
 }

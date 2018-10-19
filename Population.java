@@ -88,12 +88,15 @@ public class Population {
   // TODO: WHAT DO DO IF < INDIVIDUALS THAN POPSIZE?
   public void selectSurvivors(){
 	  sortPopulation();
-	  ArrayList<Individual> survivors = new ArrayList<Individual>(); 
+    ArrayList<Individual> survivors = new ArrayList<Individual>();
 	  for(int i = 0; i < popSize; i++) {
 		  survivors.add(individuals.get(i));
-	  }
+    }
+ 
 	  individuals = survivors;  
   }
+
+
   
   
   public ArrayList<Individual> getTop(int numberOfBest){

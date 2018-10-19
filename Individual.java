@@ -41,7 +41,7 @@ public class Individual {
 
   public Double getFitness() {
       if (fitness == 0.0) {
-          this.fitness = (double) player39.evaluation_.evaluate(this.genes);
+        fitness = (double) player39.evaluation_.evaluate(this.genes);
       }
       return fitness;
   }
