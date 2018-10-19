@@ -30,8 +30,8 @@ public class player39 implements ContestSubmission {
         evaluation_ = evaluation;
         // Get evaluation properties
         Properties props = evaluation.getProperties();
-        System.out.println("All properties");
-        System.out.println(props);
+        //System.out.println("All properties");
+        //System.out.println(props);
         
         // Get evaluation limit
         // !!!!!
@@ -49,24 +49,22 @@ public class player39 implements ContestSubmission {
 
         if (! isMultimodal && ! hasStructure && !isSeparable) {
           // BentCigarFunction
-          System.out.println("We are using BentCigarFunction");
+          // System.out.println("We are using BentCigarFunction");
         }
         if (isMultimodal && ! hasStructure && !isSeparable) {
           // Katsuura Functio
           numIslands = 5;
           popSize = 5;
-          System.out.println("We are using Katsuura Function");
+          //System.out.println("We are using Katsuura Function");
         }
         if (isMultimodal && hasStructure && !isSeparable) {
           // Schaffers Function
-          System.out.println("We are using Schaffers Function");
+          // System.out.println("We are using Schaffers Function");
         }
     }
 
 
     private ArrayList<Island> initIslands(int num, int pop_size) {
-        System.out.println("num: " + num);
-        System.out.println("pop_size: " + pop_size);
       ArrayList<Island> islands = new ArrayList<Island>();
       for (int i = 0; i < num; i++) {
         Island island = new Island(pop_size, i+1);
@@ -121,6 +119,12 @@ public class player39 implements ContestSubmission {
 
             ArrayList<Island> rankedIslandsList = new ArrayList<Island>();
             rankedIslandsList.addAll(rankedIslands.keySet());
+
+            System.out.println("EVAL: " + evals);
+            for(Island island: islands){
+              System.out.println("DIV_ISLAND_" + (island.island_id) + ": " + island.getDiversity(numIslands));
+            }
+
             if (!useBenchmark) {
               Algorithm.benchmarkMigration(rankedIslandsList);
             } else {
@@ -129,11 +133,9 @@ public class player39 implements ContestSubmission {
             
             // System.out.println("Before migration: " + unrankedIslandsList.get(1).getPopulation().getIndividual(1));
             // System.out.println("After migration: " + unrankedIslandsList.get(1).getPopulation().getIndividual(1));
-            System.out.println("EVAL: " + evals);
-            for(int i = 0; i < unrankedIslandsList.size(); i++){
-              System.out.println("DIV_ISLAND_" + (i+1) + ": " + unrankedIslandsList.get(i).getDiversity(numIslands));
-              System.out.println("AVG_ISLAND_" + (i+1) + ": " + unrankedIslandsList.get(i).getPopulation().getAveragePopulationFitness());
-              System.out.println("FIT_ISLAND_" + (i+1) + ": " + unrankedIslandsList.get(i).getPopulation().getFittestIndividual().getFitness());
+            for(Island island: islands){
+              System.out.println("AVG_ISLAND_" + island.island_id + ": " + island.getPopulation().getAveragePopulationFitness());
+              System.out.println("FIT_ISLAND_" + island.island_id + ": " + island.getPopulation().getFittestIndividual().getFitness());
             }
          }
           //
@@ -144,7 +146,6 @@ public class player39 implements ContestSubmission {
             // System.out.println(islParents);
             island.evolvePopulation(islParents);
             islPopulation.selectSurvivors();
- 
           }
         
         // TODO: DO LOGGING HERE
