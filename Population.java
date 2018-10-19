@@ -85,14 +85,12 @@ public class Population {
   }
   
   // (mu + lambda)
-  // TODO: WHAT DO DO IF < INDIVIDUALS THAN POPSIZE?
   public void selectSurvivors(){
 	  sortPopulation();
     ArrayList<Individual> survivors = new ArrayList<Individual>();
 	  for(int i = 0; i < popSize; i++) {
 		  survivors.add(individuals.get(i));
     }
- 
 	  individuals = survivors;  
   }
 
@@ -142,6 +140,26 @@ public class Population {
 		  }
 	  }	  
 	 return parents;
+  }
+
+  public ArrayList<Individual> kWayTournamentSelection(int k, int numberOfParents){
+	  ArrayList<Individual> parents = new ArrayList<Individual>();
+
+	  for(int j=0;j<numberOfParents;j++){
+		  ArrayList<Individual> possibleParents = new ArrayList<Individual>();
+		  for(int i=0; i<k; i++){
+			  int randomNum = ThreadLocalRandom.current().nextInt(0, individuals.size());
+			  possibleParents.add(individuals.get(randomNum));
+		  }
+		  Individual fittest = possibleParents.get(0);
+		  for (Individual individual: possibleParents) {
+	            if (fittest.getFitness() <= individual.getFitness()) {
+	                fittest = individual;
+	            }
+	        }
+		  parents.add(fittest);
+	  }
+	  return(parents);
   }
 
   public String getFitnesses() {

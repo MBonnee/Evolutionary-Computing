@@ -76,7 +76,10 @@ public class Island {
     public void evolvePopulation(ArrayList<Individual> parents) {
     	updateEvolveRate();
     	Algorithm alg = new Algorithm();
-	    ArrayList<Individual> children = alg.reproduction(parents, islandSplitPerc, islandCrossOverNr, islandMutationRate);
+      ArrayList<Individual> children = alg.reproduction(parents, islandSplitPerc, islandCrossOverNr, islandMutationRate);
+      for (Individual child: children) {
+        child.initialIsland = island_id;
+      }
        population.addChilderen(children);	
     }
 
