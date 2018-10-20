@@ -38,8 +38,8 @@ public class player39 implements ContestSubmission {
         // GRIDSEARCHABLE PARAMS
         numIslands = Integer.parseInt(System.getProperty("NumIslands"));
         popSize= Integer.parseInt(System.getProperty("PopSize"));
-        MIG_POP = Integer.parseInt(System.getProperty("MIG_POP"));
-        useBenchmark = Boolean.parseBoolean(props.getProperty("Benchmark")); 
+        //MIG_POP = Integer.parseInt(System.getProperty("MIG_POP"));
+        //useBenchmark = Boolean.parseBoolean(props.getProperty("Benchmark")); 
 
         if (! isMultimodal && ! hasStructure && !isSeparable) {
           // BentCigarFunction
@@ -112,14 +112,16 @@ public class player39 implements ContestSubmission {
               //#System.out.println("DIV_ISLAND_" + (island.island_id) + ": " + island.getDiversity(numIslands));
             }
 
-            if (!useBenchmark) {
-              Algorithm.benchmarkMigration(islands);
-            } else {
-              Algorithm.eliteLadderMigration(rankedIslandsList);
-            }
-            
-            // System.out.println("Before migration: " + unrankedIslandsList.get(1).getPopulation().getIndividual(1));
-            // System.out.println("After migration: " + unrankedIslandsList.get(1).getPopulation().getIndividual(1));
+            //if (!useBenchmark) {
+            //  Algorithm.benchmarkMigration(islands);
+            //} else {
+            //  Algorithm.eliteLadderMigration(rankedIslandsList);
+            //}
+            System.out.println("Before migration: " + rankedIslandsList.get(0).getPopulation().getIndividual(19));
+            System.out.println(rankedIslandsList.get(1).getPopulation().size());
+            Algorithm.eliteDistributedMigration(rankedIslandsList);
+            System.out.println("After migration: " + rankedIslandsList.get(0).getPopulation().getIndividual(19));
+            System.out.println(rankedIslandsList.get(1).getPopulation().size());
             for(Island island: islands){
               //#System.out.println("AVG_ISLAND_" + island.island_id + ": " + island.getPopulation().getAveragePopulationFitness());
               //#System.out.println("FIT_ISLAND_" + island.island_id + ": " + island.getPopulation().getFittestIndividual().getFitness());
