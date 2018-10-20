@@ -96,13 +96,6 @@ public class player39 implements ContestSubmission {
             }
 
             List<Map.Entry<Island, Double>> list = new ArrayList<>(avgMap.entrySet());
-            Map<Island, Double> unrankedIslands = new LinkedHashMap<Island, Double>();
-            for (Map.Entry<Island, Double> entry : list) {
-                unrankedIslands.put(entry.getKey(), entry.getValue());
-            }
-            ArrayList<Island> unrankedIslandsList = new ArrayList<Island>();
-            unrankedIslandsList.addAll(unrankedIslands.keySet());
-
             list.sort(Map.Entry.comparingByValue());
             Collections.reverse(list);
 
@@ -120,7 +113,7 @@ public class player39 implements ContestSubmission {
             }
 
             if (!useBenchmark) {
-              Algorithm.benchmarkMigration(rankedIslandsList);
+              Algorithm.benchmarkMigration(islands);
             } else {
               Algorithm.eliteLadderMigration(rankedIslandsList);
             }
