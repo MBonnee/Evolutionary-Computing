@@ -16,6 +16,7 @@ public class player39 implements ContestSubmission {
     private int popSize = 10;
     private int MIG_POP = 10;
     private boolean useBenchmark = false;
+    private boolean useLadder = false;
 
     public player39() {
         rnd_ = new Random();
@@ -38,23 +39,21 @@ public class player39 implements ContestSubmission {
         // GRIDSEARCHABLE PARAMS
         numIslands = Integer.parseInt(System.getProperty("NumIslands"));
         popSize= Integer.parseInt(System.getProperty("PopSize"));
-        //MIG_POP = Integer.parseInt(System.getProperty("MIG_POP"));
-        //useBenchmark = Boolean.parseBoolean(props.getProperty("Benchmark")); 
-
+        MIG_POP = Integer.parseInt(System.getProperty("MIG_POP"));
+        useBenchmark = Boolean.parseBoolean(props.getProperty("Benchmark"));
+        useLadder = Boolean.parseBoolean(props.getProperty("UseLadder")); 
+ 
         if (! isMultimodal && ! hasStructure && !isSeparable) {
           // BentCigarFunction
-          // System.out.println("We are using BentCigarFunction");
-          //MIG_POP = 5;
+          evaluations_limit_ = 150;
         }
         if (isMultimodal && ! hasStructure && !isSeparable) {
           // Katsuura Functio
-          //System.out.println("We are using Katsuura Function");
-          //MIG_POP = 100;
+          evaluations_limit_ = 100000;
         }
         if (isMultimodal && hasStructure && !isSeparable) {
           // Schaffers Function
-          // System.out.println("We are using Schaffers Function");
-          // MIG_POP = 50;
+          evaluations_limit_ = 10000;
         }
     }
 
@@ -73,17 +72,16 @@ public class player39 implements ContestSubmission {
     ///
     
     public void run() {
-	    System.out.println(evaluations_limit_);
         // Run your algorithm here
         int evals = 0;
         // init islands with populations
-        //#System.out.println("NUM_ISL: " + numIslands);
-        //#System.out.println("POP_SIZE: " + popSize);
-        //#System.out.println("BENCHMARK: " + useBenchmark);
+        System.out.println("NUM_ISL: " + numIslands);
+        System.out.println("POP_SIZE: " + popSize);
+        System.out.println("BENCHMARK: " + useBenchmark);
 
 
         ArrayList<Island> islands = initIslands(numIslands, popSize);
-        while(evals<100000){
+        while(evals<evaluations_limit_){
           if (evals % MIG_POP == 0 && evals > 20) {
             // sort populations on islands rank them, prepare migration pools
             Map<Integer, Population> popMap = new HashMap<Integer, Population>();
@@ -107,24 +105,22 @@ public class player39 implements ContestSubmission {
             ArrayList<Island> rankedIslandsList = new ArrayList<Island>();
             rankedIslandsList.addAll(rankedIslands.keySet());
 
-            //#System.out.println("EVAL: " + evals);
+            System.out.println("EVAL: " + evals);
             for(Island island: islands){
-              //#System.out.println("DIV_ISLAND_" + (island.island_id) + ": " + island.getDiversity(numIslands));
+              System.out.println("DIV_ISLAND_" + (island.island_id) + ": " + island.getDiversity(numIslands));
             }
 
-            //if (!useBenchmark) {
-            //  Algorithm.benchmarkMigration(islands);
-            //} else {
-            //  Algorithm.eliteLadderMigration(rankedIslandsList);
-            //}
-            System.out.println("Before migration: " + rankedIslandsList.get(0).getPopulation().getIndividual(19));
-            System.out.println(rankedIslandsList.get(1).getPopulation().size());
-            Algorithm.eliteDistributedMigration(rankedIslandsList);
-            System.out.println("After migration: " + rankedIslandsList.get(0).getPopulation().getIndividual(19));
-            System.out.println(rankedIslandsList.get(1).getPopulation().size());
+            if (useBenchmark) {
+              Algorithm.benchmarkMigration(islands);
+            } else if (useLadder) {
+              Algorithm.eliteLadderMigration(rankedIslandsList);
+            } else {
+              Algorithm.eliteDistributedMigration(rankedIslandsList);
+            }
+           
             for(Island island: islands){
-              //#System.out.println("AVG_ISLAND_" + island.island_id + ": " + island.getPopulation().getAveragePopulationFitness());
-              //#System.out.println("FIT_ISLAND_" + island.island_id + ": " + island.getPopulation().getFittestIndividual().getFitness());
+              System.out.println("AVG_ISLAND_" + island.island_id + ": " + island.getPopulation().getAveragePopulationFitness());
+              System.out.println("FIT_ISLAND_" + island.island_id + ": " + island.getPopulation().getFittestIndividual().getFitness());
             }
          }
           //
@@ -132,7 +128,7 @@ public class player39 implements ContestSubmission {
           for (Island island : islands) {
             Population islPopulation = island.getPopulation();
             // ArrayList<Individual> islParents = islPopulation.twoWayTournamentSelection(popSize-2);
-            ArrayList<Individual> islParents = islPopulation.kWayTournamentSelection(2,popSize-2); 
+            ArrayList<Individual> islParents = islPopulation.kWayTournamentSelection(4,popSize-2); 
             // System.out.println(islParents);
             island.evolvePopulation(islParents);
             islPopulation.selectSurvivors();

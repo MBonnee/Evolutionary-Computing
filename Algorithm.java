@@ -1,10 +1,11 @@
 import java.util.Collections;
 import java.util.*;
+import java.util.Random;
 
 public class Algorithm {
 	int decimals = 1;
 	
-	public ArrayList<Individual> reproduction(ArrayList<Individual> parents, double splitPerc, int crossOver, double mutationRate){
+	public ArrayList<Individual> reproduction(ArrayList<Individual> parents, double splitPerc, int crossOver, double mutationRate, double mutationSize){
     ArrayList<Individual> childeren = new ArrayList<Individual>();
     splitPerc = .1;
 		int split = (int) Math.round((splitPerc*parents.size())/2)*2;
@@ -13,7 +14,12 @@ public class Algorithm {
 			childeren.add(nPointCrossOver(parents.get(i), parents.get(i+1), crossOver));
 		}
 		for(int j = split; j < parents.size(); j++) {
-			childeren.add(mutateRandom(parents.get(j), mutationRate));
+<<<<<<< HEAD
+			childeren.add(mutateRandom(parents.get(j), mutationRate, mutationSize));
+=======
+      //childeren.add(mutateRandom(parents.get(j), mutationRate));
+      childeren.add(mutateGaussian(parents.get(j), mutationRate));
+>>>>>>> 7a37fbb911b1ad5441dd3fb9d7a7375aca5c06a6
 		}
 		for(Individual child: childeren) {
 			child.getFitness();
@@ -121,7 +127,7 @@ public class Algorithm {
 		}
 	}
 	
-	public Individual mutateRandom(Individual indiv, double mutationProbability) {
+	public Individual mutateRandom(Individual indiv, double mutationProbability, double mutSize) {
 		Individual mutated = new Individual(indiv.initialIsland);
 		for(int i = 0; i < indiv.size(); i++) {
 			mutated.setGene(i, indiv.getGene(i));
@@ -129,11 +135,28 @@ public class Algorithm {
 		double mutationProb = mutationProbability;
 		for(int i = 0; i < indiv.size(); i++) {
 			if(Math.random() < mutationProb) {
-				mutated.setGene(i, Math.round((Math.random()*10 - 5)*Math.pow(10, decimals))/(Math.pow(10, decimals)));
+				mutated.setGene(i, Math.round((Math.random()*2*mutSize - mutSize)*Math.pow(10, decimals))/(Math.pow(10, decimals)));
+			}
+		}
+		return mutated;
+  }
+  
+  public Individual mutateGaussian(Individual indiv, double mutationProbability) {
+		Individual mutated = new Individual(indiv.initialIsland);
+		for(int i = 0; i < indiv.size(); i++) {
+			mutated.setGene(i, indiv.getGene(i));
+		}
+		double mutationProb = mutationProbability;
+		for(int i = 0; i < indiv.size(); i++) {
+			if(Math.random() < mutationProb) {
+				Random r = new Random();
+        double mySample = r.nextGaussian()*.3+0;
+        mutated.setGene(i, mutated.getGene(i)+mySample); 
 			}
 		}
 		return mutated;
 	}
+
 	
 	public void mutateMoveRight(Individual indiv, int times) {
 		for(int j = 0; j < times; j++) {
