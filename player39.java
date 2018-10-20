@@ -43,18 +43,12 @@ public class player39 implements ContestSubmission {
 
         if (! isMultimodal && ! hasStructure && !isSeparable) {
           // BentCigarFunction
-          // System.out.println("We are using BentCigarFunction");
-          //MIG_POP = 5;
         }
         if (isMultimodal && ! hasStructure && !isSeparable) {
           // Katsuura Functio
-          //System.out.println("We are using Katsuura Function");
-          //MIG_POP = 100;
         }
         if (isMultimodal && hasStructure && !isSeparable) {
           // Schaffers Function
-          // System.out.println("We are using Schaffers Function");
-          // MIG_POP = 50;
         }
     }
 
@@ -125,8 +119,6 @@ public class player39 implements ContestSubmission {
               Algorithm.eliteLadderMigration(rankedIslandsList);
             }
             
-            // System.out.println("Before migration: " + unrankedIslandsList.get(1).getPopulation().getIndividual(1));
-            // System.out.println("After migration: " + unrankedIslandsList.get(1).getPopulation().getIndividual(1));
             for(Island island: islands){
               //#System.out.println("AVG_ISLAND_" + island.island_id + ": " + island.getPopulation().getAveragePopulationFitness());
               //#System.out.println("FIT_ISLAND_" + island.island_id + ": " + island.getPopulation().getFittestIndividual().getFitness());
