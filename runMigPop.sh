@@ -21,7 +21,7 @@ done
 
 COUNTER=1
 while [  $COUNTER -lt 10 ]; do
-java -DNumIslands=10 -DPopSize=20 -DMIG_POP=$MIG_POP_COUNTER -DBenchmark=true -DUseLadder=false -jar testrun.jar -submission=player39 -evaluation=SchaffersEvaluation -seed=1 > txt/x_${MIG_POP_COUNTER}_distri_score_${COUNTER}.txt
+java -DNumIslands=10 -DPopSize=20 -DMIG_POP=$MIG_POP_COUNTER -DBenchmark=false -DUseLadder=false -jar testrun.jar -submission=player39 -evaluation=SchaffersEvaluation -seed=1 > txt/x_${MIG_POP_COUNTER}_distri_score_${COUNTER}.txt
 let COUNTER=COUNTER+1
 done
 

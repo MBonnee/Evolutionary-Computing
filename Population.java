@@ -94,7 +94,17 @@ public class Population {
 	  individuals = survivors;  
   }
 
-
+  public void lambdaPlusMu(ArrayList<Individual> newIndividuals){
+	  sortPopulation();
+	  ArrayList<Individual> survivors = new ArrayList<Individual>(); 
+	  for(int i = 0; i < popSize-newIndividuals.size(); i++) {
+		  survivors.add(individuals.get(i));
+	  } 
+	  for(int i = 0; i < newIndividuals.size(); i++) {
+		  survivors.add(newIndividuals.get(i));
+	  }
+	  individuals = survivors; 
+  }
   
   
   public ArrayList<Individual> getTop(int numberOfBest){

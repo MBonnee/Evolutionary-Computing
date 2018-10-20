@@ -76,51 +76,61 @@ public class player39 implements ContestSubmission {
         int evals = 0;
         // init islands with populations
         System.out.println("NUM_ISL: " + numIslands);
-        System.out.println("POP_SIZE: " + popSize);
-        System.out.println("BENCHMARK: " + useBenchmark);
+        //System.out.println("POP_SIZE: " + popSize);
+        //System.out.println("BENCHMARK: " + useBenchmark);
 
 
         ArrayList<Island> islands = initIslands(numIslands, popSize);
         while(evals<evaluations_limit_){
           if (evals % MIG_POP == 0 && evals > 20) {
-            // sort populations on islands rank them, prepare migration pools
-            Map<Integer, Population> popMap = new HashMap<Integer, Population>();
-            Map<Island, Double> avgMap = new HashMap<Island, Double>();
-            for (Island island : islands) {
-              Population migPopulation = island.getPopulation();
-              migPopulation.sortPopulation();
-              popMap.put(island.island_id, migPopulation);
-              avgMap.put(island, migPopulation.getAveragePopulationFitness());
-            }
-
-            List<Map.Entry<Island, Double>> list = new ArrayList<>(avgMap.entrySet());
-            list.sort(Map.Entry.comparingByValue());
-            Collections.reverse(list);
-
-            Map<Island, Double> rankedIslands = new LinkedHashMap<Island, Double>();
-            for (Map.Entry<Island, Double> entry : list) {
-                rankedIslands.put(entry.getKey(), entry.getValue());
-            }
-
-            ArrayList<Island> rankedIslandsList = new ArrayList<Island>();
-            rankedIslandsList.addAll(rankedIslands.keySet());
-
+            
             System.out.println("EVAL: " + evals);
             for(Island island: islands){
               System.out.println("DIV_ISLAND_" + (island.island_id) + ": " + island.getDiversity(numIslands));
             }
+            
 
             if (useBenchmark) {
               Algorithm.benchmarkMigration(islands);
-            } else if (useLadder) {
-              Algorithm.eliteLadderMigration(rankedIslandsList);
             } else {
-              Algorithm.eliteDistributedMigration(rankedIslandsList);
-            }
-           
+              // sort populations on islands rank them, prepare migration pools
+              Map<Integer, Population> popMap = new HashMap<Integer, Population>();
+              Map<Island, Double> avgMap = new HashMap<Island, Double>();
+              for (Island island : islands) {
+                Population migPopulation = island.getPopulation();
+                migPopulation.sortPopulation();
+                popMap.put(island.island_id, migPopulation);
+                avgMap.put(island, migPopulation.getAveragePopulationFitness());
+              }
+
+              List<Map.Entry<Island, Double>> list = new ArrayList<>(avgMap.entrySet());
+              list.sort(Map.Entry.comparingByValue());
+              Collections.reverse(list);
+
+              Map<Island, Double> rankedIslands = new LinkedHashMap<Island, Double>();
+              for (Map.Entry<Island, Double> entry : list) {
+                  rankedIslands.put(entry.getKey(), entry.getValue());
+              }
+
+              ArrayList<Island> rankedIslandsList = new ArrayList<Island>();
+              rankedIslandsList.addAll(rankedIslands.keySet());
+              if (useLadder) {
+                Algorithm.eliteLadderMigration(rankedIslandsList);
+              } else {
+                Algorithm.eliteDistributedMigration(rankedIslandsList);
+              }
+            } 
+            
+            
             for(Island island: islands){
               System.out.println("AVG_ISLAND_" + island.island_id + ": " + island.getPopulation().getAveragePopulationFitness());
+              // MONTE CARLO
+              //if (island.getPopulation().getAveragePopulationFitness() > 9.0) {
+                //System.out.println("EVAL:"+evals);
+                //return;
+              //}
               System.out.println("FIT_ISLAND_" + island.island_id + ": " + island.getPopulation().getFittestIndividual().getFitness());
+
             }
          }
           //
@@ -128,8 +138,7 @@ public class player39 implements ContestSubmission {
           for (Island island : islands) {
             Population islPopulation = island.getPopulation();
             // ArrayList<Individual> islParents = islPopulation.twoWayTournamentSelection(popSize-2);
-            ArrayList<Individual> islParents = islPopulation.kWayTournamentSelection(4,popSize-2); 
-            // System.out.println(islParents);
+            ArrayList<Individual> islParents = islPopulation.kWayTournamentSelection(2,popSize-2); 
             island.evolvePopulation(islParents);
             islPopulation.selectSurvivors();
           }
