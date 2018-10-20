@@ -1,5 +1,6 @@
 import java.util.Collections;
 import java.util.*;
+import java.util.Random;
 
 public class Algorithm {
 	int decimals = 1;
@@ -13,7 +14,8 @@ public class Algorithm {
 			childeren.add(nPointCrossOver(parents.get(i), parents.get(i+1), crossOver));
 		}
 		for(int j = split; j < parents.size(); j++) {
-			childeren.add(mutateRandom(parents.get(j), mutationRate));
+      //childeren.add(mutateRandom(parents.get(j), mutationRate));
+      childeren.add(mutateGaussian(parents.get(j), mutationRate));
 		}
 		for(Individual child: childeren) {
 			child.getFitness();
@@ -133,7 +135,24 @@ public class Algorithm {
 			}
 		}
 		return mutated;
+  }
+  
+  public Individual mutateGaussian(Individual indiv, double mutationProbability) {
+		Individual mutated = new Individual(indiv.initialIsland);
+		for(int i = 0; i < indiv.size(); i++) {
+			mutated.setGene(i, indiv.getGene(i));
+		}
+		double mutationProb = mutationProbability;
+		for(int i = 0; i < indiv.size(); i++) {
+			if(Math.random() < mutationProb) {
+				Random r = new Random();
+        double mySample = r.nextGaussian()*.3+0;
+        mutated.setGene(i, mutated.getGene(i)+mySample); 
+			}
+		}
+		return mutated;
 	}
+
 	
 	public void mutateMoveRight(Individual indiv, int times) {
 		for(int j = 0; j < times; j++) {

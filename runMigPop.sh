@@ -7,15 +7,21 @@ jar cmf MainClass.txt submission.jar $(find . -name "*.class")
 MIG_POP_COUNTER=1
 while [  $MIG_POP_COUNTER -lt 12 ]; do
 
-COUNTER=0
+COUNTER=1
 while [  $COUNTER -lt 10 ]; do
-java -DNumIslands=10 -DPopSize=12 -DMIG_POP=$MIG_POP_COUNTER -DBenchmark=false -jar testrun.jar -submission=player39 -evaluation=SchaffersEvaluation -seed=1 > txt/x_${MIG_POP_COUNTER}_ladder_score_${COUNTER}.txt
+java -DNumIslands=10 -DPopSize=20 -DMIG_POP=$MIG_POP_COUNTER -DBenchmark=false -DUseLadder=true -jar testrun.jar -submission=player39 -evaluation=SchaffersEvaluation -seed=1 > txt/x_${MIG_POP_COUNTER}_ladder_score_${COUNTER}.txt
 let COUNTER=COUNTER+1
 done
 
-COUNTER=0
+COUNTER=1
 while [  $COUNTER -lt 10 ]; do
-java -DNumIslands=10 -DPopSize=12 -DMIG_POP=$MIG_POP_COUNTER -DBenchmark=true -jar testrun.jar -submission=player39 -evaluation=SchaffersEvaluation -seed=1 > txt/x_${MIG_POP_COUNTER}_benchmark_score_${COUNTER}.txt
+java -DNumIslands=10 -DPopSize=20 -DMIG_POP=$MIG_POP_COUNTER -DBenchmark=true -DUseLadder=true -jar testrun.jar -submission=player39 -evaluation=SchaffersEvaluation -seed=1 > txt/x_${MIG_POP_COUNTER}_benchmark_score_${COUNTER}.txt
+let COUNTER=COUNTER+1
+done
+
+COUNTER=1
+while [  $COUNTER -lt 10 ]; do
+java -DNumIslands=10 -DPopSize=20 -DMIG_POP=$MIG_POP_COUNTER -DBenchmark=true -DUseLadder=false -jar testrun.jar -submission=player39 -evaluation=SchaffersEvaluation -seed=1 > txt/x_${MIG_POP_COUNTER}_distri_score_${COUNTER}.txt
 let COUNTER=COUNTER+1
 done
 
