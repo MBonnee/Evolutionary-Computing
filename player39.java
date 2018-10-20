@@ -90,13 +90,6 @@ public class player39 implements ContestSubmission {
             }
 
             List<Map.Entry<Island, Double>> list = new ArrayList<>(avgMap.entrySet());
-            Map<Island, Double> unrankedIslands = new LinkedHashMap<Island, Double>();
-            for (Map.Entry<Island, Double> entry : list) {
-                unrankedIslands.put(entry.getKey(), entry.getValue());
-            }
-            ArrayList<Island> unrankedIslandsList = new ArrayList<Island>();
-            unrankedIslandsList.addAll(unrankedIslands.keySet());
-
             list.sort(Map.Entry.comparingByValue());
             Collections.reverse(list);
 
@@ -113,12 +106,12 @@ public class player39 implements ContestSubmission {
               //#System.out.println("DIV_ISLAND_" + (island.island_id) + ": " + island.getDiversity(numIslands));
             }
 
-            if (!useBenchmark) {
-              Algorithm.benchmarkMigration(rankedIslandsList);
+            if (useBenchmark) {
+              Algorithm.benchmarkMigration(islands);
             } else {
               Algorithm.eliteLadderMigration(rankedIslandsList);
             }
-            
+           
             for(Island island: islands){
               //#System.out.println("AVG_ISLAND_" + island.island_id + ": " + island.getPopulation().getAveragePopulationFitness());
               //#System.out.println("FIT_ISLAND_" + island.island_id + ": " + island.getPopulation().getFittestIndividual().getFitness());
@@ -129,7 +122,7 @@ public class player39 implements ContestSubmission {
           for (Island island : islands) {
             Population islPopulation = island.getPopulation();
             // ArrayList<Individual> islParents = islPopulation.twoWayTournamentSelection(popSize-2);
-            ArrayList<Individual> islParents = islPopulation.kWayTournamentSelection(2,popSize-2); 
+            ArrayList<Individual> islParents = islPopulation.kWayTournamentSelection(4,popSize-2); 
             // System.out.println(islParents);
             island.evolvePopulation(islParents);
             islPopulation.selectSurvivors();

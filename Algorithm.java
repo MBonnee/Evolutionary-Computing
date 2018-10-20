@@ -222,4 +222,21 @@ public class Algorithm {
             }
         }
     }
+
+    public static void eliteDistributedMigration(ArrayList<Island> islands){
+        for(int i = 1; i < islands.size(); i++) {
+            Population origin = islands.get(i).getPopulation();
+            ArrayList<Individual> eliteIndivs = origin.getTop(origin.getPopulationsSize() / 2);
+            int amountToDistribute = eliteIndivs.size()/i;
+            int count = 0;
+            for (int j = i-1; j >= 0; j--) {
+                Population destination = islands.get(j).getPopulation();
+                for(int k = 0; k < amountToDistribute; k++){
+                    destination.addIndividual(eliteIndivs.get(count));
+                    //origin.removeIndividual(eliteIndivs.get(count));
+                    count++;
+                }
+            }
+        }
+    }
 }
