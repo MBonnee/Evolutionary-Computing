@@ -67,7 +67,7 @@ public class player39 implements ContestSubmission {
       return islands;
     }
 
-    ///
+    /// CORE ALGORITHM
     /// http://www.theprojectspot.com/tutorial-post/creating-a-genetic-algorithm-for-beginners/3
     ///
     
@@ -149,7 +149,6 @@ public class player39 implements ContestSubmission {
             islPopulation.selectSurvivors();
           }
         
-        // TODO: DO LOGGING HERE
         evals++;
       } 
     }
