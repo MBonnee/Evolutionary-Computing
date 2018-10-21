@@ -75,22 +75,22 @@ public class player39 implements ContestSubmission {
         // Run your algorithm here
         int evals = 0;
         // init islands with populations
-        System.out.println("NUM_ISL: " + numIslands);
+        //System.out.println("NUM_ISL: " + numIslands);
         //System.out.println("POP_SIZE: " + popSize);
         //System.out.println("BENCHMARK: " + useBenchmark);
 
 
         ArrayList<Island> islands = initIslands(numIslands, popSize);
         while(evals<evaluations_limit_){
-          if (evals % MIG_POP == 0 && evals > 20) {
-            
-            System.out.println("EVAL: " + evals);
+           System.out.println("EVAL: " + evals);
+         
+          if (MIG_POP != 0 && evals % MIG_POP == 0 && evals > 20) {
             for(Island island: islands){
-              System.out.println("DIV_ISLAND_" + (island.island_id) + ": " + island.getDiversity(numIslands));
+              //System.out.println("DIV_ISLAND_" + (island.island_id) + ": " + island.getDiversity(numIslands));
             }
             
 
-            if (useBenchmark) {
+            if (useBenchmark && MIG_POP>0) {
               Algorithm.benchmarkMigration(islands);
             } else {
               // sort populations on islands rank them, prepare migration pools
@@ -114,31 +114,37 @@ public class player39 implements ContestSubmission {
 
               ArrayList<Island> rankedIslandsList = new ArrayList<Island>();
               rankedIslandsList.addAll(rankedIslands.keySet());
-              if (useLadder) {
+              if (useLadder && MIG_POP>0) {
                 Algorithm.eliteLadderMigration(rankedIslandsList);
-              } else {
+              } else if (MIG_POP>0) {
                 Algorithm.eliteDistributedMigration(rankedIslandsList);
               }
-            } 
-            
+            }
             
             for(Island island: islands){
-              System.out.println("AVG_ISLAND_" + island.island_id + ": " + island.getPopulation().getAveragePopulationFitness());
+              //System.out.println("AVG_ISLAND_" + island.island_id + ": " + island.getPopulation().getAveragePopulationFitness());
               // MONTE CARLO
-              //if (island.getPopulation().getAveragePopulationFitness() > 9.0) {
-                //System.out.println("EVAL:"+evals);
-                //return;
-              //}
-              System.out.println("FIT_ISLAND_" + island.island_id + ": " + island.getPopulation().getFittestIndividual().getFitness());
+              if (island.getPopulation().getAveragePopulationFitness() > 7) {
+                System.out.println("FIN_EVAL:"+evals);
+                return;
+              }
+              //System.out.println("FIT_ISLAND_" + island.island_id + ": " + island.getPopulation().getFittestIndividual().getFitness());
 
             }
          }
+
           //
           // evolve locally on islands
           for (Island island : islands) {
+
+            if (island.getPopulation().getAveragePopulationFitness() > 7 && MIG_POP == 0) {
+              System.out.println("FIN_EVAL:"+evals);
+              return;
+            }
+            
             Population islPopulation = island.getPopulation();
             // ArrayList<Individual> islParents = islPopulation.twoWayTournamentSelection(popSize-2);
-            ArrayList<Individual> islParents = islPopulation.kWayTournamentSelection(2,popSize-2); 
+            ArrayList<Individual> islParents = islPopulation.kWayTournamentSelection(4,popSize-2); 
             island.evolvePopulation(islParents);
             islPopulation.selectSurvivors();
           }
